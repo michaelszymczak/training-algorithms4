@@ -1,4 +1,4 @@
-package com.michaelszymczak.training.algorithms4.chapter01.section_01_01;
+package com.michaelszymczak.training.algorithms4.chapter01.section01;
 
 public class _1_1_3 {
 

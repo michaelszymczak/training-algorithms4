@@ -1,4 +1,4 @@
-package com.michaelszymczak.training.algorithms4.chapter01.section_01_01;
+package com.michaelszymczak.training.algorithms4.chapter01.section01;
 
 
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ExercisesTest {
+public class _1_1Test {
 
     public static final double DELTA = 1e-20;
 
