@@ -1,6 +1,6 @@
 package com.michaelszymczak.training.algorithms4.chapter01.section01;
 
-public class _1_1_3 {
+public class _01_01_03 {
 
     public static void main(String[] args) {
         System.out.println(check(args[0], args[1], args[2]));

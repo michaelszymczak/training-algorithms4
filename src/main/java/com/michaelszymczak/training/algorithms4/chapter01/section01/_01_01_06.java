@@ -1,6 +1,6 @@
 package com.michaelszymczak.training.algorithms4.chapter01.section01;
 
-public class _1_1_6 {
+public class _01_01_06 {
 
     public static String numbers(int maxI) {
         String result = "";
