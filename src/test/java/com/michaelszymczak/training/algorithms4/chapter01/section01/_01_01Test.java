@@ -73,6 +73,7 @@ public class _01_01Test {
     public void _01_01_06() throws Exception {
         assertEquals("0,", _01_01_06.numbers(0));
         assertEquals("0,1,", _01_01_06.numbers(1));
+        // X(n) = X(n-2) + X(n-1)
         assertEquals("0,1,1,", _01_01_06.numbers(2));
         assertEquals("0,1,1,2,", _01_01_06.numbers(3));
         assertEquals("0,1,1,2,3,", _01_01_06.numbers(4));
@@ -87,6 +88,13 @@ public class _01_01Test {
         assertEquals("0,1,1,2,3,5,8,13,21,34,55,89,144,233,", _01_01_06.numbers(13));
         assertEquals("0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,", _01_01_06.numbers(14));
         assertEquals("0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,", _01_01_06.numbers(15));
+    }
+
+    @Test
+    public void _01_01_07() throws Exception {
+        assertEquals("3.00009\n", _01_01_07.a(9.0)); // square root, Newton's method
+        assertEquals("499500", _01_01_07.b(1000)); // arithmetic series
+        assertEquals("1023", _01_01_07.c(1000)); // geometric progression: 2^10 - 1
     }
 
         private void assertDoubleEquals(double expected, double actual) {
