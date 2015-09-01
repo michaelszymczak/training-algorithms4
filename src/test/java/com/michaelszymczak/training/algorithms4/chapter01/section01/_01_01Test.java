@@ -97,7 +97,17 @@ public class _01_01Test {
         assertEquals("1023", _01_01_07.c(1000)); // geometric progression: 2^10 - 1
     }
 
-        private void assertDoubleEquals(double expected, double actual) {
+    @Test
+    public void _01_01_08() throws Exception {
+        assertTrue('b' == 'b');
+        assertTrue(197 == 'b' + 'c'); // http://stackoverflow.com/questions/8688668/in-java-is-the-result-of-the-addition-of-two-chars-an-int-or-a-char
+        assertTrue('e' == 'a' + 4);
+        assertTrue(101 == 'a' + 4);
+    }
+
+    
+
+    private void assertDoubleEquals(double expected, double actual) {
         assertEquals(expected, actual, DELTA);
     }
 
