@@ -6,10 +6,14 @@ final class BinarySearch
 
     public int find(final int[] input, final int sought)
     {
-        if (input.length == 0)
+        final int lowIndex = 0;
+        final int highIndex = input.length - 1;
+        if (lowIndex > highIndex)
         {
             return NOT_FOUND;
         }
-        return input[0] == sought ? 0 : NOT_FOUND;
+        int guessIndex = 0;
+
+        return input[guessIndex] == sought ? 0 : NOT_FOUND;
     }
 }
