@@ -37,10 +37,12 @@ public class BinarySearchTest
     }
 
     @Test
-    void shouldFindMatchingElementOnSecondPosition()
+    void shouldFindMatchingElementOnRightSideOfTheMid()
     {
-        final int[] input = new int[]{3, 9};
-        int result = binarySearch.find(input, 9);
-        assertThat(result).isEqualTo(1);
+        assertThat(binarySearch.find(new int[]{3, 9}, 9)).isEqualTo(1);
+        assertThat(binarySearch.find(new int[]{3, 9, 10}, 10)).isEqualTo(2);
+        assertThat(binarySearch.find(new int[]{0,1,2,3,4}, 3)).isEqualTo(3);
     }
+
+
 }
