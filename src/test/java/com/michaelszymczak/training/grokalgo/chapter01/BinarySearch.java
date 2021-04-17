@@ -12,8 +12,9 @@ final class BinarySearch
         {
             return NOT_FOUND;
         }
-        int guessIndex = 0;
+        int mid = (lowIndex + highIndex) / 2;
+        int guess = input[mid];
 
-        return input[guessIndex] == sought ? 0 : NOT_FOUND;
+        return guess == sought ? mid : NOT_FOUND;
     }
 }
