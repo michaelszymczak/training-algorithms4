@@ -2,7 +2,6 @@ package com.michaelszymczak.training.grokalgo.chapter01;
 
 import java.util.stream.IntStream;
 
-import com.michaelszymczak.training.grokalgo.TimeComplexity;
 import com.michaelszymczak.training.grokalgo.TimeComplexityTracker;
 
 import org.junit.jupiter.api.Test;
@@ -63,25 +62,22 @@ public class BinarySearchTest
         for (int soughtValueMatchingIndex = 0; soughtValueMatchingIndex < range.length - 1; soughtValueMatchingIndex++)
         {
             int index = binarySearch.find(range, soughtValueMatchingIndex);
-            // faster when assertion is not executed unnecesarily
-            if (index != soughtValueMatchingIndex)
-            {
-                assertThat(index).isEqualTo(soughtValueMatchingIndex);
-            }
+            assertThat(index).isEqualTo(soughtValueMatchingIndex);
         }
     }
 
     @Test
     void soakTestForValueAbsent()
     {
-        final int[] range = IntStream.range(0, 1000).toArray();
+        final int inputSize = 1000;
+        final int[] range = IntStream.range(0, inputSize).toArray();
         for (int soughtValueMatchingIndex = 0; soughtValueMatchingIndex < range.length - 1; soughtValueMatchingIndex++)
         {
             int absentValue = -soughtValueMatchingIndex - 1;
             timeComplexityTracker.reset();
             int index = binarySearch.find(range, absentValue);
             assertThat(index).isEqualTo(NOT_FOUND);
-            assertThat(timeComplexityTracker.operationsCount()).isEqualTo(9); // log2(1000)
+            assertThat(timeComplexityTracker.probablyLogN(inputSize)).isTrue();
         }
     }
 }

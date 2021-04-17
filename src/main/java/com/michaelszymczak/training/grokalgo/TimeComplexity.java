@@ -2,10 +2,6 @@ package com.michaelszymczak.training.grokalgo;
 
 public interface TimeComplexity
 {
-    void onOperation();
-
-    void reset();
-
     TimeComplexity IGNORE_TIME_COMPLEXITY = new TimeComplexity()
     {
 
@@ -16,9 +12,13 @@ public interface TimeComplexity
         }
 
         @Override
-        public void reset()
+        public TimeComplexity reset()
         {
-
+            return this;
         }
     };
+
+    void onOperation();
+
+    TimeComplexity reset();
 }
