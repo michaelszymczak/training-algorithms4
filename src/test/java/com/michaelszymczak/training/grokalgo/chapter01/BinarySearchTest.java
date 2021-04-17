@@ -17,13 +17,11 @@ public class BinarySearchTest
         assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 
-    private static final class BinarySearch
+    @Test
+    void shouldFindOnlyElement()
     {
-        public static final int NOT_FOUND = -1;
-
-        public int find(final int[] input, final int sought)
-        {
-            return NOT_FOUND;
-        }
+        final int[] input = new int[]{3};
+        int result = binarySearch.find(input, 3);
+        assertThat(result).isEqualTo(0);
     }
 }
