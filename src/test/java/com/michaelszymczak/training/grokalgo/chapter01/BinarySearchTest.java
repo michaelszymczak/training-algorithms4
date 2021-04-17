@@ -1,5 +1,7 @@
 package com.michaelszymczak.training.grokalgo.chapter01;
 
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,5 +51,36 @@ public class BinarySearchTest
     {
         assertThat(binarySearch.find(new int[]{3, 9, 10}, 3)).isEqualTo(0);
         assertThat(binarySearch.find(new int[]{0,1,2,3,4}, 1)).isEqualTo(1);
+    }
+
+    @Test
+    void soakTestForValuePresent()
+    {
+        final int[] range = IntStream.range(0, 1000).toArray();
+        for (int soughtValueMatchingIndex = 0; soughtValueMatchingIndex < range.length - 1; soughtValueMatchingIndex++)
+        {
+            int index = binarySearch.find(range, soughtValueMatchingIndex);
+            // faster when assertion is not executed unnecesarily
+            if (index != soughtValueMatchingIndex)
+            {
+                assertThat(index).isEqualTo(soughtValueMatchingIndex);
+            }
+        }
+    }
+
+    @Test
+    void soakTestForValueAbsent()
+    {
+        final int[] range = IntStream.range(0, 1000).toArray();
+        for (int soughtValueMatchingIndex = 0; soughtValueMatchingIndex < range.length - 1; soughtValueMatchingIndex++)
+        {
+            int absentValue = -soughtValueMatchingIndex - 1;
+            int index = binarySearch.find(range, absentValue);
+            // faster when assertion is not executed unnecesarily
+            if (index != NOT_FOUND)
+            {
+                assertThat(index).isEqualTo(NOT_FOUND);
+            }
+        }
     }
 }
