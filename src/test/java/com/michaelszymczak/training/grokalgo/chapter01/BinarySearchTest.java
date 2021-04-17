@@ -11,7 +11,6 @@ import static com.michaelszymczak.training.grokalgo.chapter01.BinarySearch.NOT_F
 
 public class BinarySearchTest
 {
-
     private final BinarySearch binarySearch = new BinarySearch();
 
     @Test
