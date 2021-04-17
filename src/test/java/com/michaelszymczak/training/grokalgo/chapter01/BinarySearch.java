@@ -10,6 +10,6 @@ final class BinarySearch
         {
             return NOT_FOUND;
         }
-        return 0;
+        return input[0] == sought ? 0 : NOT_FOUND;
     }
 }
