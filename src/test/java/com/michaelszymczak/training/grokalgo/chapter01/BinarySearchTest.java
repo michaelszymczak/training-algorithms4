@@ -35,4 +35,12 @@ public class BinarySearchTest
         int result = binarySearch.find(input, 4);
         assertThat(result).isEqualTo(NOT_FOUND);
     }
+
+    @Test
+    void shouldFindMatchingElementOnSecondPosition()
+    {
+        final int[] input = new int[]{3, 9};
+        int result = binarySearch.find(input, 9);
+        assertThat(result).isEqualTo(1);
+    }
 }
