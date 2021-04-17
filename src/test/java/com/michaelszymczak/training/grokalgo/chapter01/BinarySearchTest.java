@@ -44,5 +44,10 @@ public class BinarySearchTest
         assertThat(binarySearch.find(new int[]{0,1,2,3,4}, 3)).isEqualTo(3);
     }
 
-
+    @Test
+    void shouldFindMatchingElementOnLeftSideOfTheMid()
+    {
+        assertThat(binarySearch.find(new int[]{3, 9, 10}, 3)).isEqualTo(0);
+        assertThat(binarySearch.find(new int[]{0,1,2,3,4}, 1)).isEqualTo(1);
+    }
 }

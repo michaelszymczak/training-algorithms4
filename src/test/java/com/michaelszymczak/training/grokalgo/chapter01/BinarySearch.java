@@ -16,7 +16,14 @@ final class BinarySearch
             {
                 return mid;
             }
-            lowIndex = mid + 1;
+            else if (guess < sought)
+            {
+                lowIndex = mid + 1;
+            }
+            else
+            {
+                highIndex = mid - 1;
+            }
         }
         return NOT_FOUND;
     }
