@@ -11,6 +11,9 @@ repositories {
 
 java {
     modularity.inferModulePath = true
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }
 
 test {
