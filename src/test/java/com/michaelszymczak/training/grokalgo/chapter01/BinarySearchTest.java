@@ -1,25 +1,29 @@
 package com.michaelszymczak.training.grokalgo.chapter01;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BinarySearchTest
 {
+
+    private final BinarySearch binarySearch = new BinarySearch();
+
     @Test
     void shouldNotFindAnythingInAnEmptyArray()
     {
-        final BinarySearch binarySearch = new BinarySearch();
         final int[] input = new int[0];
-
-        Assertions.assertThat(binarySearch.find(input, 3)).isEqualTo(-1);
-
+        int result = binarySearch.find(input, 3);
+        assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 
     private static final class BinarySearch
     {
+        public static final int NOT_FOUND = -1;
+
         public int find(final int[] input, final int sought)
         {
-            return -1;
+            return NOT_FOUND;
         }
     }
 }
