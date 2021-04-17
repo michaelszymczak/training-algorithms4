@@ -6,6 +6,6 @@ Exercises from [Algorithms, 4th edition](http://algs4.cs.princeton.edu/home/) bo
 
 ## To run
 
-    ./gradlew clean build && java -jar build/libs/algorithms4-0.1.jar
+    ./gradlew clean build
 
 
