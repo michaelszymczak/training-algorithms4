@@ -2,6 +2,9 @@ package com.michaelszymczak.training.grokalgo.chapter01;
 
 import java.util.stream.IntStream;
 
+import com.michaelszymczak.training.grokalgo.TimeComplexity;
+import com.michaelszymczak.training.grokalgo.TimeComplexityTracker;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,7 +14,8 @@ import static com.michaelszymczak.training.grokalgo.chapter01.BinarySearch.NOT_F
 
 public class BinarySearchTest
 {
-    private final BinarySearch binarySearch = new BinarySearch();
+    private final TimeComplexityTracker timeComplexityTracker = new TimeComplexityTracker();
+    private final BinarySearch binarySearch = new BinarySearch(timeComplexityTracker);
 
     @Test
     void shouldNotFindAnythingInAnEmptyArray()
@@ -42,14 +46,14 @@ public class BinarySearchTest
     {
         assertThat(binarySearch.find(new int[]{3, 9}, 9)).isEqualTo(1);
         assertThat(binarySearch.find(new int[]{3, 9, 10}, 10)).isEqualTo(2);
-        assertThat(binarySearch.find(new int[]{0,1,2,3,4}, 3)).isEqualTo(3);
+        assertThat(binarySearch.find(new int[]{0, 1, 2, 3, 4}, 3)).isEqualTo(3);
     }
 
     @Test
     void shouldFindMatchingElementOnLeftSideOfTheMid()
     {
         assertThat(binarySearch.find(new int[]{3, 9, 10}, 3)).isEqualTo(0);
-        assertThat(binarySearch.find(new int[]{0,1,2,3,4}, 1)).isEqualTo(1);
+        assertThat(binarySearch.find(new int[]{0, 1, 2, 3, 4}, 1)).isEqualTo(1);
     }
 
     @Test
@@ -74,12 +78,10 @@ public class BinarySearchTest
         for (int soughtValueMatchingIndex = 0; soughtValueMatchingIndex < range.length - 1; soughtValueMatchingIndex++)
         {
             int absentValue = -soughtValueMatchingIndex - 1;
+            timeComplexityTracker.reset();
             int index = binarySearch.find(range, absentValue);
-            // faster when assertion is not executed unnecesarily
-            if (index != NOT_FOUND)
-            {
-                assertThat(index).isEqualTo(NOT_FOUND);
-            }
+            assertThat(index).isEqualTo(NOT_FOUND);
+            assertThat(timeComplexityTracker.operationsCount()).isEqualTo(9); // log2(1000)
         }
     }
 }
