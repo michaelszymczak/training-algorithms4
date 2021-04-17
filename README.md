@@ -1,6 +1,6 @@
 # Algorithms 4th edition
 
-[![Build Status](https://travis-ci.org/michaelszymczak/training-algorithms4.svg)](https://travis-ci.org/michaelszymczak/training-algorithms4)
+![Tests_Java_11](https://github.com/michaelszymczak/training-algorithms4/workflows/Tests_Java_11/badge.svg)
 
 Exercises from [Algorithms, 4th edition](http://algs4.cs.princeton.edu/home/) book.
 
