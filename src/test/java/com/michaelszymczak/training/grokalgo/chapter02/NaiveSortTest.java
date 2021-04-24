@@ -3,6 +3,7 @@ package com.michaelszymczak.training.grokalgo.chapter02;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class NaiveSortTest
 {
@@ -36,11 +37,23 @@ public class NaiveSortTest
         assertThat(this.sort.sort(new int[]{2, 1})).isEqualTo(new int[]{1, 2});
     }
 
+    @Test
+    void shouldNotAllowSentinelValueUntilTested()
+    {
+        assertThatThrownBy(() -> sort.sort(new int[]{Integer.MAX_VALUE})).isInstanceOf(IllegalArgumentException.class);
+    }
 
     private static final class NaiveSort
     {
         public int[] sort(final int[] input)
         {
+            for (int i = 0; i < input.length; i++)
+            {
+                if (input[i] == SENTINEL)
+                {
+                    throw new IllegalArgumentException(SENTINEL + " value not supported");
+                }
+            }
             final int[] inputCopy = new int[input.length];
             final int[] result = new int[input.length];
             System.arraycopy(input, 0, inputCopy, 0, input.length);
@@ -50,9 +63,10 @@ public class NaiveSortTest
                 int minIndexFoundSoFar = 0;
                 for (int j = 0; j < inputCopy.length; j++)
                 {
-                    if (inputCopy[j] <= minValueFoundSoFar)
+                    int candidate = inputCopy[j];
+                    if (candidate <= minValueFoundSoFar)
                     {
-                        minValueFoundSoFar = inputCopy[j];
+                        minValueFoundSoFar = candidate;
                         minIndexFoundSoFar = j;
                     }
                 }
