@@ -33,12 +33,30 @@ public class NaiveSortTest
     {
         public int[] sort(final int[] input)
         {
+            final int[] inputCopy = new int[input.length];
             final int[] result = new int[input.length];
+            System.arraycopy(input, 0, inputCopy, 0, input.length);
             for (int i = 0; i < input.length; i++)
             {
-                result[i] = input[i];
+                result[i] = nextElement(inputCopy);
             }
             return result;
+        }
+
+        private static final int SENTINEL = Integer.MAX_VALUE;
+
+        private int nextElement(final int[] inputCopy)
+        {
+            for (int i = 0; i < inputCopy.length; i++)
+            {
+                if (inputCopy[i] != SENTINEL)
+                {
+                    int result = inputCopy[i];
+                    inputCopy[i] = SENTINEL;
+                    return result;
+                }
+            }
+            return SENTINEL;
         }
     }
 }
