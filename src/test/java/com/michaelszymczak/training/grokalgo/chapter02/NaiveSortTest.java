@@ -12,17 +12,21 @@ public class NaiveSortTest
     @Test
     void shouldResultInEmptyArrayWhenNoItems()
     {
-        int[] result = sort.sort(new int[0]);
 
-        assertThat(result).isEmpty();
+        assertThat(sort.sort(new int[0])).isEmpty();
     }
 
     @Test
     void shouldReturnTheOnlyElement()
     {
-        int[] result = this.sort.sort(new int[]{3});
 
-        assertThat(result).isEqualTo(new int[]{3});
+        assertThat(this.sort.sort(new int[]{3})).isEqualTo(new int[]{3});
+    }
+
+    @Test
+    void shouldHandleAlreadySortedInput()
+    {
+        assertThat(this.sort.sort(new int[]{-1,2,3})).isEqualTo(new int[]{-1,2,3});
     }
 
     private static final class NaiveSort
@@ -30,9 +34,9 @@ public class NaiveSortTest
         public int[] sort(final int[] input)
         {
             final int[] result = new int[input.length];
-            if (input.length != 0)
+            for (int i = 0; i < input.length; i++)
             {
-                result[0] = input[0];
+                result[i] = input[i];
             }
             return result;
         }
