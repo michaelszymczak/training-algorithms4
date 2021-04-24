@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class NaiveSortTest
 {
 
+    private static final int SENTINEL = Integer.MAX_VALUE;
     private final NaiveSort sort = new NaiveSort();
 
     @Test
@@ -26,8 +27,15 @@ public class NaiveSortTest
     @Test
     void shouldHandleAlreadySortedInput()
     {
-        assertThat(this.sort.sort(new int[]{-1,2,3})).isEqualTo(new int[]{-1,2,3});
+        assertThat(this.sort.sort(new int[]{-1, 2, 3})).isEqualTo(new int[]{-1, 2, 3});
     }
+
+    @Test
+    void shouldPrioritizeLowerValues()
+    {
+        assertThat(this.sort.sort(new int[]{2, 1})).isEqualTo(new int[]{1, 2});
+    }
+
 
     private static final class NaiveSort
     {
@@ -38,22 +46,22 @@ public class NaiveSortTest
             System.arraycopy(input, 0, inputCopy, 0, input.length);
             for (int i = 0; i < input.length; i++)
             {
-                int nextValue = SENTINEL;
+                int minValueFoundSoFar = SENTINEL;
+                int minIndexFoundSoFar = 0;
                 for (int j = 0; j < inputCopy.length; j++)
                 {
-                    if (inputCopy[j] != SENTINEL)
+                    if (inputCopy[j] <= minValueFoundSoFar)
                     {
-                        nextValue = inputCopy[j];
-                        inputCopy[j] = SENTINEL;
-                        break;
+                        minValueFoundSoFar = inputCopy[j];
+                        minIndexFoundSoFar = j;
                     }
                 }
-                result[i] = nextValue;
+
+                int nextLowestValue = inputCopy[minIndexFoundSoFar];
+                inputCopy[minIndexFoundSoFar] = SENTINEL;
+                result[i] = nextLowestValue;
             }
             return result;
         }
-
-        private static final int SENTINEL = Integer.MAX_VALUE;
-
     }
 }
