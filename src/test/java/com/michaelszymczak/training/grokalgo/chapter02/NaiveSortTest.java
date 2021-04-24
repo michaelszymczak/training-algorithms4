@@ -1,5 +1,9 @@
 package com.michaelszymczak.training.grokalgo.chapter02;
 
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,5 +44,4 @@ public class NaiveSortTest
     {
         assertThatThrownBy(() -> sort.sort(new int[]{Integer.MAX_VALUE})).isInstanceOf(IllegalArgumentException.class);
     }
-
 }
