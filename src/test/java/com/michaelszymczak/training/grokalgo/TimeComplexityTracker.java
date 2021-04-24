@@ -2,7 +2,7 @@ package com.michaelszymczak.training.grokalgo;
 
 public class TimeComplexityTracker implements TimeComplexity
 {
-    private static final double TOLERANCE = 0.2;
+    private static final double TOLERANCE = 0.5;
     private int ops = 0;
 
     @Override
@@ -18,7 +18,7 @@ public class TimeComplexityTracker implements TimeComplexity
         return this;
     }
 
-    public boolean probablyLogN(final int inputSize)
+    public boolean probablyLogN(final long inputSize)
     {
         return matchesOpsCount((int)(Math.log(inputSize) / Math.log(2)));
     }
@@ -26,6 +26,11 @@ public class TimeComplexityTracker implements TimeComplexity
     public boolean probablyN(final int inputSize)
     {
         return matchesOpsCount(inputSize);
+    }
+
+    public boolean probablyN2(final int inputSize)
+    {
+        return matchesOpsCount(inputSize * inputSize);
     }
 
     private boolean matchesOpsCount(final int expectedOps)

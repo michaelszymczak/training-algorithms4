@@ -14,13 +14,13 @@ class TimeComplexityTrackerTest
         final TimeComplexityTracker tracker = new TimeComplexityTracker().reset();
 
         // When
-        timesRun(10, tracker::onOperation);
+        timesRun(20, tracker::onOperation);
 
         // Then
-        assertThat(tracker.probablyLogN((int)Math.pow(2, 13))).isFalse();
-        assertThat(tracker.probablyLogN((int)Math.pow(2, 12))).isTrue();
-        assertThat(tracker.probablyLogN((int)Math.pow(2, 10))).isTrue();
-        assertThat(tracker.probablyLogN((int)Math.pow(2, 8))).isTrue();
+        assertThat(tracker.probablyLogN((long)Math.pow(2, 35))).isFalse();
+        assertThat(tracker.probablyLogN(2 * (long)Math.pow(2, 20))).isTrue();
+        assertThat(tracker.probablyLogN((long)Math.pow(2, 20) / 2)).isTrue();
+        assertThat(tracker.probablyLogN((long)Math.pow(2, 15))).isTrue();
         assertThat(tracker.probablyLogN((int)Math.pow(2, 7))).isFalse();
     }
 
@@ -30,14 +30,30 @@ class TimeComplexityTrackerTest
         final TimeComplexityTracker tracker = new TimeComplexityTracker().reset();
 
         // When
-        timesRun(1000, tracker::onOperation);
+        timesRun(10000, tracker::onOperation);
 
         // Then
-        assertThat(tracker.probablyN(1201)).isFalse();
-        assertThat(tracker.probablyN(1200)).isTrue();
-        assertThat(tracker.probablyN(1000)).isTrue();
-        assertThat(tracker.probablyN(800)).isTrue();
-        assertThat(tracker.probablyN(799)).isFalse();
+        assertThat(tracker.probablyN(2000)).isFalse();
+        assertThat(tracker.probablyN(5000)).isTrue();
+        assertThat(tracker.probablyN(10000)).isTrue();
+        assertThat(tracker.probablyN(15000)).isTrue();
+        assertThat(tracker.probablyN(20000)).isFalse();
+    }
+
+    @Test
+    void shouldDecideIfCanBeQuadraticWithSomeErrorMargin()
+    {
+        final TimeComplexityTracker tracker = new TimeComplexityTracker().reset();
+
+        // When
+        timesRun(50 * 50, tracker::onOperation);
+
+        // Then
+        assertThat(tracker.probablyN2(30)).isFalse();
+        assertThat(tracker.probablyN2(40)).isTrue();
+        assertThat(tracker.probablyN2(50)).isTrue();
+        assertThat(tracker.probablyN2(60)).isTrue();
+        assertThat(tracker.probablyN2(70)).isFalse();
     }
 
     private void timesRun(final int num, final Runnable r)

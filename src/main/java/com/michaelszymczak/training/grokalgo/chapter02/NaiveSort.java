@@ -1,8 +1,21 @@
 package com.michaelszymczak.training.grokalgo.chapter02;
 
+import com.michaelszymczak.training.grokalgo.TimeComplexity;
+
 final class NaiveSort
 {
     private static final int SENTINEL = Integer.MAX_VALUE;
+    private final TimeComplexity timeComplexity;
+
+    public NaiveSort()
+    {
+        this(TimeComplexity.IGNORE_TIME_COMPLEXITY);
+    }
+
+    public NaiveSort(final TimeComplexity timeComplexity)
+    {
+        this.timeComplexity = timeComplexity;
+    }
 
     public int[] sort(final int[] input)
     {
@@ -15,6 +28,7 @@ final class NaiveSort
             int minIndexFoundSoFar = 0;
             for (int j = 0; j < inputCopy.length; j++)
             {
+                timeComplexity.onOperation();
                 int candidate = inputCopy[j];
                 if (candidate <= minValueFoundSoFar)
                 {

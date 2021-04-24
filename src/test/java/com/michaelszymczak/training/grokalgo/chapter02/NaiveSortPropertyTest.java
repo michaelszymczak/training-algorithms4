@@ -3,13 +3,16 @@ package com.michaelszymczak.training.grokalgo.chapter02;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
+import com.michaelszymczak.training.grokalgo.TimeComplexityTracker;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class NaiveSortPropertyTest
 {
-    private final NaiveSort sort = new NaiveSort();
+    private final TimeComplexityTracker timeComplexityTracker = new TimeComplexityTracker();
+    private final NaiveSort sort = new NaiveSort(timeComplexityTracker);
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     @Test
@@ -19,6 +22,7 @@ public class NaiveSortPropertyTest
         final int[] inputCopy = copy(input);
 
         // When
+        timeComplexityTracker.reset();
         int[] result = this.sort.sort(input);
 
         // Then
@@ -26,6 +30,9 @@ public class NaiveSortPropertyTest
         assertThat(input).isEqualTo(inputCopy).describedAs("property: input array is not modified");
         assertMonotonicallyIncreasing(result);
         assertValuesAddUp(input, result);
+        assertThat(timeComplexityTracker.probablyLogN(input.length)).isFalse();
+        assertThat(timeComplexityTracker.probablyN(input.length)).isFalse();
+        assertThat(timeComplexityTracker.probablyN2(input.length)).isTrue();
     }
 
     private void assertMonotonicallyIncreasing(final int[] result)
