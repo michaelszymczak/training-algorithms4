@@ -3,7 +3,10 @@ package com.michaelszymczak.training.grokalgo.chapter02;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
 
 public class NaiveSortTest
 {
@@ -42,8 +45,8 @@ public class NaiveSortTest
     }
 
     @Test
-    void shouldNotAllowSentinelValueUntilTested()
+    void shouldHandleBoundaryValues()
     {
-        assertThatThrownBy(() -> sort.sort(new int[]{Integer.MAX_VALUE})).isInstanceOf(IllegalArgumentException.class);
+        assertThat(this.sort.sort(new int[]{MAX_VALUE, 1, -1, 0, MIN_VALUE, MAX_VALUE, MIN_VALUE})).isEqualTo(new int[]{MIN_VALUE, MIN_VALUE, -1, 0, 1, MAX_VALUE, MAX_VALUE});
     }
 }

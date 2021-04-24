@@ -6,13 +6,6 @@ final class NaiveSort
 
     public int[] sort(final int[] input)
     {
-        for (int i = 0; i < input.length; i++)
-        {
-            if (input[i] == SENTINEL)
-            {
-                throw new IllegalArgumentException(SENTINEL + " value not supported");
-            }
-        }
         final int[] inputCopy = new int[input.length];
         final int[] result = new int[input.length];
         System.arraycopy(input, 0, inputCopy, 0, input.length);
