@@ -7,8 +7,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class NaiveSortTest
 {
-
-    private static final int SENTINEL = Integer.MAX_VALUE;
     private final NaiveSort sort = new NaiveSort();
 
     @Test
@@ -43,39 +41,4 @@ public class NaiveSortTest
         assertThatThrownBy(() -> sort.sort(new int[]{Integer.MAX_VALUE})).isInstanceOf(IllegalArgumentException.class);
     }
 
-    private static final class NaiveSort
-    {
-        public int[] sort(final int[] input)
-        {
-            for (int i = 0; i < input.length; i++)
-            {
-                if (input[i] == SENTINEL)
-                {
-                    throw new IllegalArgumentException(SENTINEL + " value not supported");
-                }
-            }
-            final int[] inputCopy = new int[input.length];
-            final int[] result = new int[input.length];
-            System.arraycopy(input, 0, inputCopy, 0, input.length);
-            for (int i = 0; i < input.length; i++)
-            {
-                int minValueFoundSoFar = SENTINEL;
-                int minIndexFoundSoFar = 0;
-                for (int j = 0; j < inputCopy.length; j++)
-                {
-                    int candidate = inputCopy[j];
-                    if (candidate <= minValueFoundSoFar)
-                    {
-                        minValueFoundSoFar = candidate;
-                        minIndexFoundSoFar = j;
-                    }
-                }
-
-                int nextLowestValue = inputCopy[minIndexFoundSoFar];
-                inputCopy[minIndexFoundSoFar] = SENTINEL;
-                result[i] = nextLowestValue;
-            }
-            return result;
-        }
-    }
 }
