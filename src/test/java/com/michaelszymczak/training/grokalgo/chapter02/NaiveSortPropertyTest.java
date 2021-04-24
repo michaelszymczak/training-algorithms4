@@ -24,8 +24,8 @@ public class NaiveSortPropertyTest
         // Then
         assertThat(result.length).isEqualTo(input.length).describedAs("property: length is the same as the input");
         assertThat(input).isEqualTo(inputCopy).describedAs("property: input array is not modified");
-        // property: result is monotonically increasing
         assertMonotonicallyIncreasing(result);
+        assertValuesAddUp(input, result);
     }
 
     private void assertMonotonicallyIncreasing(final int[] result)
@@ -36,6 +36,17 @@ public class NaiveSortPropertyTest
             assertThat(value).isGreaterThanOrEqualTo(highestValueSoFar);
             highestValueSoFar = value;
         }
+    }
+
+    private void assertValuesAddUp(final int[] input, final int[] result)
+    {
+        long diff = 0;
+        for (int i = 0; i < input.length; i++)
+        {
+            diff += input[i];
+            diff -= result[i];
+        }
+        assertThat(diff).isEqualTo(0);
     }
 
     private int[] copy(final int[] input)
