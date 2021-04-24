@@ -38,25 +38,22 @@ public class NaiveSortTest
             System.arraycopy(input, 0, inputCopy, 0, input.length);
             for (int i = 0; i < input.length; i++)
             {
-                result[i] = nextElement(inputCopy);
+                int nextValue = SENTINEL;
+                for (int j = 0; j < inputCopy.length; j++)
+                {
+                    if (inputCopy[j] != SENTINEL)
+                    {
+                        nextValue = inputCopy[j];
+                        inputCopy[j] = SENTINEL;
+                        break;
+                    }
+                }
+                result[i] = nextValue;
             }
             return result;
         }
 
         private static final int SENTINEL = Integer.MAX_VALUE;
 
-        private int nextElement(final int[] inputCopy)
-        {
-            for (int i = 0; i < inputCopy.length; i++)
-            {
-                if (inputCopy[i] != SENTINEL)
-                {
-                    int result = inputCopy[i];
-                    inputCopy[i] = SENTINEL;
-                    return result;
-                }
-            }
-            return SENTINEL;
-        }
     }
 }
