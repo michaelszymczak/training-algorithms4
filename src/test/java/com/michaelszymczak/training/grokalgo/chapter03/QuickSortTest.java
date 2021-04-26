@@ -73,6 +73,13 @@ public class QuickSortTest
     }
 
     @Test
+    void shouldMaintainTheSameIdenticalElements()
+    {
+        int[] result = sort.sort(new int[]{2, 2, 2});
+        assertThat(result).isEqualTo(new int[]{2, 2, 2});
+    }
+
+    @Test
     void shouldNotMutateTheInput()
     {
         int[] input = {4, 1};

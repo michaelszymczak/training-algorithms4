@@ -61,8 +61,8 @@ public class QuickSort
             result[lowIndex] = input[pivotIndex];
             int[] sortedLow = sorted(result, 0, lowIndex);
             arraycopy(sortedLow, 0, result, 0, lowIndex);
-            int[] sortedHigh = sorted(result, highIndex, length - highIndex);
-            arraycopy(sortedHigh, 0, result, highIndex, length - highIndex);
+            int[] sortedHigh = sorted(result, lowIndex + 1, length - lowIndex - 1);
+            arraycopy(sortedHigh, 0, result, lowIndex + 1, length - lowIndex - 1);
 
             return result;
         }
