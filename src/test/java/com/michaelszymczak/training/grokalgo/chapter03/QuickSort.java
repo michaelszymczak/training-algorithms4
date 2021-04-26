@@ -37,13 +37,33 @@ public class QuickSort
         }
         else
         {
+            int pivotIndex = from + 2;
+            final int pivotValue = input[pivotIndex];
             final int[] result = new int[length];
-            int[] sortedLow = sorted(input, 0, 2);
+            int lowIndex = 0;
+            int highIndex = length - 1;
+            for (int i = from; i < to; i++)
+            {
+                if (i == pivotIndex)
+                {
+                    continue;
+                }
+                int value = input[i];
+                if (value < pivotValue)
+                {
+                    result[lowIndex++] = value;
+                }
+                else
+                {
+                    result[highIndex--] = value;
+                }
+            }
+            int[] sortedLow = sorted(result, 0, 2);
             arraycopy(sortedLow, 0, result, 0, 2);
-            result[2] = input[from+2];
+            result[2] = pivotValue;
             if (length > 3)
             {
-                int[] sortedHigh = sorted(input, 3, 5);
+                int[] sortedHigh = sorted(result, 3, 5);
                 arraycopy(sortedHigh, 0, result, 3, 2);
             }
             return result;

@@ -53,6 +53,14 @@ public class QuickSortTest
     }
 
     @Test
+    void shouldSortWhenPivotElementInTheMiddle()
+    {
+        int[] result = sort.sort(new int[]{2, 1, 0, -1, -2});
+        assertThat(result).isEqualTo(new int[]{-2, -1, 0, 1, 2});
+    }
+
+
+    @Test
     void shouldNotMutateTheInput()
     {
         int[] input = {4, 1};
