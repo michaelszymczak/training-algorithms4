@@ -1,11 +1,15 @@
 package com.michaelszymczak.training.grokalgo.chapter03;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+
 import static java.lang.System.arraycopy;
 
 public class QuickSort
 {
 
     private static final int[] EMPTY_ARRAY = new int[0];
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     public int[] sort(final int[] input)
     {
@@ -39,7 +43,7 @@ public class QuickSort
         }
         else
         {
-            int pivotIndex = startIndex + 2;
+            int pivotIndex = startIndex + random.nextInt(length);
             final int[] result = new int[length];
             int lowIndex = 0;
             int highIndex = length - 1;
