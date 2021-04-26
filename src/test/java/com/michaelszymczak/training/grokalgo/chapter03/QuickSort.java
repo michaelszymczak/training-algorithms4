@@ -12,9 +12,8 @@ public class QuickSort
         return sorted(input, 0, input.length);
     }
 
-    private int[] sorted(final int[] input, final int startIndex, final int to)
+    private int[] sorted(final int[] input, final int startIndex, final int length)
     {
-        int length = to - startIndex;
         if (length == 0)
         {
             return EMPTY_ARRAY;
@@ -41,7 +40,6 @@ public class QuickSort
         else
         {
             int pivotIndex = startIndex + 2;
-            final int pivotValue = input[pivotIndex];
             final int[] result = new int[length];
             int lowIndex = 0;
             int highIndex = length - 1;
@@ -51,20 +49,19 @@ public class QuickSort
                 {
                     continue;
                 }
-                int value = input[i];
-                if (value < pivotValue)
+                if (input[i] < input[pivotIndex])
                 {
-                    result[lowIndex++] = value;
+                    result[lowIndex++] = input[i];
                 }
                 else
                 {
-                    result[highIndex--] = value;
+                    result[highIndex--] = input[i];
                 }
             }
-            result[lowIndex] = pivotValue;
+            result[lowIndex] = input[pivotIndex];
             int[] sortedLow = sorted(result, 0, lowIndex);
             arraycopy(sortedLow, 0, result, 0, lowIndex);
-            int[] sortedHigh = sorted(result, highIndex, length);
+            int[] sortedHigh = sorted(result, highIndex, length - highIndex);
             arraycopy(sortedHigh, 0, result, highIndex, length - highIndex);
 
             return result;

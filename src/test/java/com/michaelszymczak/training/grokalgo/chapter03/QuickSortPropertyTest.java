@@ -1,5 +1,7 @@
 package com.michaelszymczak.training.grokalgo.chapter03;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.michaelszymczak.training.grokalgo.Fixtures;
 import com.michaelszymczak.training.grokalgo.Properties;
 
@@ -14,7 +16,7 @@ public class QuickSortPropertyTest
     @Test
     void shouldReturnMonotonicallyIncreasingArray()
     {
-        final int[] input = Fixtures.generate(1000);
+        final int[] input = Fixtures.generate(ThreadLocalRandom.current().nextInt(1000));
         final int[] inputCopy = Fixtures.copy(input);
 
         // When
