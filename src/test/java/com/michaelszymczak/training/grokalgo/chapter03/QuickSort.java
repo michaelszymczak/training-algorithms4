@@ -58,14 +58,12 @@ public class QuickSort
                     result[highIndex--] = value;
                 }
             }
-            int[] sortedLow = sorted(result, 0, 2);
-            arraycopy(sortedLow, 0, result, 0, 2);
-            result[2] = pivotValue;
-            if (length > 3)
-            {
-                int[] sortedHigh = sorted(result, 3, 5);
-                arraycopy(sortedHigh, 0, result, 3, 2);
-            }
+            result[lowIndex] = pivotValue;
+            int[] sortedLow = sorted(result, 0, lowIndex);
+            arraycopy(sortedLow, 0, result, 0, lowIndex);
+            int[] sortedHigh = sorted(result, highIndex, length);
+            arraycopy(sortedHigh, 0, result, highIndex, length - highIndex);
+
             return result;
         }
     }
