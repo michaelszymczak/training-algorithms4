@@ -12,30 +12,41 @@ public class QuickSort
     private int[] sorted(final int[] input, final int from, final int to)
     {
         int length = to - from;
-        final int[] result = new int[length];
-        arraycopy(input, from, result, 0, length);
-        if (length == 2)
+        if (length == 0)
         {
-            if (result[0] > result[1])
+            return new int[0];
+        }
+        else if (length == 1)
+        {
+            return new int[]{input[from]};
+        }
+        else if (length == 2)
+        {
+            int[] result = new int[2];
+            if (input[from] > input[from + 1])
             {
-                int tmp = result[0];
-                result[0] = result[1];
-                result[1] = tmp;
+                result[0] = input[from + 1];
+                result[1] = input[from];
+            }
+            else
+            {
+                result[0] = input[from];
+                result[1] = input[from + 1];
             }
             return result;
         }
-        else if (length < 2)
+        else
         {
+            final int[] result = new int[length];
+            int[] sortedLow = sorted(input, 0, 2);
+            arraycopy(sortedLow, 0, result, 0, 2);
+            result[2] = input[from+2];
+            if (length > 3)
+            {
+                int[] sortedHigh = sorted(input, 3, 5);
+                arraycopy(sortedHigh, 0, result, 3, 2);
+            }
             return result;
         }
-
-        int[] sortedLow = sorted(result, 0, 2);
-        arraycopy(sortedLow, 0, result, 0, 2);
-        if (length > 3)
-        {
-            int[] sortedHigh = sorted(result, 3, 5);
-            arraycopy(sortedHigh, 0, result, 3, 2);
-        }
-        return result;
     }
 }
