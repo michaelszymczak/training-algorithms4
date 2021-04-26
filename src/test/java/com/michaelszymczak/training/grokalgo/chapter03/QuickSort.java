@@ -4,45 +4,48 @@ import static java.lang.System.arraycopy;
 
 public class QuickSort
 {
+
+    private static final int[] EMPTY_ARRAY = new int[0];
+
     public int[] sort(final int[] input)
     {
         return sorted(input, 0, input.length);
     }
 
-    private int[] sorted(final int[] input, final int from, final int to)
+    private int[] sorted(final int[] input, final int startIndex, final int to)
     {
-        int length = to - from;
+        int length = to - startIndex;
         if (length == 0)
         {
-            return new int[0];
+            return EMPTY_ARRAY;
         }
         else if (length == 1)
         {
-            return new int[]{input[from]};
+            return new int[]{input[startIndex]};
         }
         else if (length == 2)
         {
             int[] result = new int[2];
-            if (input[from] > input[from + 1])
+            if (input[startIndex] > input[startIndex + 1])
             {
-                result[0] = input[from + 1];
-                result[1] = input[from];
+                result[0] = input[startIndex + 1];
+                result[1] = input[startIndex];
             }
             else
             {
-                result[0] = input[from];
-                result[1] = input[from + 1];
+                result[0] = input[startIndex];
+                result[1] = input[startIndex + 1];
             }
             return result;
         }
         else
         {
-            int pivotIndex = from + 2;
+            int pivotIndex = startIndex + 2;
             final int pivotValue = input[pivotIndex];
             final int[] result = new int[length];
             int lowIndex = 0;
             int highIndex = length - 1;
-            for (int i = from; i < to; i++)
+            for (int i = startIndex; i < startIndex + length; i++)
             {
                 if (i == pivotIndex)
                 {
