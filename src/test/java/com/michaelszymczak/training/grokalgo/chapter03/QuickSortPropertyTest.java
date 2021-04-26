@@ -1,17 +1,15 @@
-package com.michaelszymczak.training.grokalgo.chapter02;
+package com.michaelszymczak.training.grokalgo.chapter03;
 
-import com.michaelszymczak.training.grokalgo.Properties;
 import com.michaelszymczak.training.grokalgo.Fixtures;
-import com.michaelszymczak.training.grokalgo.TimeComplexityTracker;
+import com.michaelszymczak.training.grokalgo.Properties;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NaiveSortPropertyTest
+public class QuickSortPropertyTest
 {
-    private final TimeComplexityTracker timeComplexityTracker = new TimeComplexityTracker();
-    private final NaiveSort sort = new NaiveSort(timeComplexityTracker);
+    private final QuickSort sort = new QuickSort();
 
     @Test
     void shouldReturnMonotonicallyIncreasingArray()
@@ -20,7 +18,6 @@ public class NaiveSortPropertyTest
         final int[] inputCopy = Fixtures.copy(input);
 
         // When
-        timeComplexityTracker.reset();
         int[] result = this.sort.sort(input);
 
         // Then
@@ -28,8 +25,5 @@ public class NaiveSortPropertyTest
         assertThat(input).isEqualTo(inputCopy).describedAs("property: input array is not modified");
         Properties.assertMonotonicallyIncreasing(result);
         Properties.assertValuesAddUp(input, result);
-        assertThat(timeComplexityTracker.probablyLogN(input.length)).isFalse();
-        assertThat(timeComplexityTracker.probablyN(input.length)).isFalse();
-        assertThat(timeComplexityTracker.probablyN2(input.length)).isTrue();
     }
 }
