@@ -39,6 +39,13 @@ public class QuickSortTest
     }
 
     @Test
+    void shouldSortFirstAndLastTwoElements()
+    {
+        int[] result = sort.sort(new int[]{-1, -2, 0, 2, 1});
+        assertThat(result).isEqualTo(new int[]{-2, -1, 0, 1, 2});
+    }
+
+    @Test
     void shouldKeepAlreadySortedBothElements()
     {
         int[] result = sort.sort(new int[]{-3, -2});

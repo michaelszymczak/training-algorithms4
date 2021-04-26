@@ -29,8 +29,13 @@ public class QuickSort
             return result;
         }
 
-        int[] sorted = sorted(result, 0, 2);
-        arraycopy(sorted, 0, result, 0, 2);
+        int[] sortedLow = sorted(result, 0, 2);
+        arraycopy(sortedLow, 0, result, 0, 2);
+        if (length > 3)
+        {
+            int[] sortedHigh = sorted(result, 3, 5);
+            arraycopy(sortedHigh, 0, result, 3, 2);
+        }
         return result;
     }
 }
