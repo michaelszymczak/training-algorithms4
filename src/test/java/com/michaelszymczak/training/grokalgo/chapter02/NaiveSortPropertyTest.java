@@ -21,7 +21,7 @@ public class NaiveSortPropertyTest
 
         // When
         timeComplexityTracker.reset();
-        int[] result = sort.sort(input);
+        int[] result = sort.sorted(input);
 
         // Then
         assertThat(result.length).isEqualTo(input.length).describedAs("property: length is the same as the input");

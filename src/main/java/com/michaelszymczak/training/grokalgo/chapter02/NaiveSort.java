@@ -17,7 +17,7 @@ final class NaiveSort
         this.timeComplexity = timeComplexity;
     }
 
-    public int[] sort(final int[] input)
+    public int[] sorted(final int[] input)
     {
         final int[] inputCopy = new int[input.length];
         final int[] result = new int[input.length];

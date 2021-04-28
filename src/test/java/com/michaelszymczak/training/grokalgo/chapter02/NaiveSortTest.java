@@ -16,37 +16,37 @@ public class NaiveSortTest
     void shouldResultInEmptyArrayWhenNoItems()
     {
 
-        assertThat(sort.sort(new int[0])).isEmpty();
+        assertThat(sort.sorted(new int[0])).isEmpty();
     }
 
     @Test
     void shouldReturnTheOnlyElement()
     {
 
-        assertThat(this.sort.sort(new int[]{3})).isEqualTo(new int[]{3});
+        assertThat(sort.sorted(new int[]{3})).isEqualTo(new int[]{3});
     }
 
     @Test
     void shouldHandleAlreadySortedInput()
     {
-        assertThat(this.sort.sort(new int[]{-1, 2, 3})).isEqualTo(new int[]{-1, 2, 3});
+        assertThat(sort.sorted(new int[]{-1, 2, 3})).isEqualTo(new int[]{-1, 2, 3});
     }
 
     @Test
     void shouldPrioritizeLowerValues()
     {
-        assertThat(this.sort.sort(new int[]{2, 1})).isEqualTo(new int[]{1, 2});
+        assertThat(sort.sorted(new int[]{2, 1})).isEqualTo(new int[]{1, 2});
     }
 
     @Test
     void shouldKeepTheSameValueTogether()
     {
-        assertThat(this.sort.sort(new int[]{5, 5, 3, 5, 3})).isEqualTo(new int[]{3, 3, 5, 5, 5});
+        assertThat(sort.sorted(new int[]{5, 5, 3, 5, 3})).isEqualTo(new int[]{3, 3, 5, 5, 5});
     }
 
     @Test
     void shouldHandleBoundaryValues()
     {
-        assertThat(this.sort.sort(new int[]{MAX_VALUE, 1, -1, 0, MIN_VALUE, MAX_VALUE, MIN_VALUE})).isEqualTo(new int[]{MIN_VALUE, MIN_VALUE, -1, 0, 1, MAX_VALUE, MAX_VALUE});
+        assertThat(sort.sorted(new int[]{MAX_VALUE, 1, -1, 0, MIN_VALUE, MAX_VALUE, MIN_VALUE})).isEqualTo(new int[]{MIN_VALUE, MIN_VALUE, -1, 0, 1, MAX_VALUE, MAX_VALUE});
     }
 }
