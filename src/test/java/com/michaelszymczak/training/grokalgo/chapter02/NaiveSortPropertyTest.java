@@ -1,7 +1,7 @@
 package com.michaelszymczak.training.grokalgo.chapter02;
 
-import com.michaelszymczak.training.grokalgo.Properties;
 import com.michaelszymczak.training.grokalgo.Fixtures;
+import com.michaelszymczak.training.grokalgo.Properties;
 import com.michaelszymczak.training.grokalgo.TimeComplexityTracker;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class NaiveSortPropertyTest
     @Test
     void shouldReturnMonotonicallyIncreasingArray()
     {
-        final int[] input = Fixtures.generate(1000);
+        final int[] input = Fixtures.generate(Integer.MIN_VALUE, Integer.MAX_VALUE - 1, 1000);
         final int[] inputCopy = Fixtures.copy(input);
 
         // When

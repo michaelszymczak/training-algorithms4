@@ -6,10 +6,10 @@ import java.util.stream.IntStream;
 public class Fixtures
 {
 
-    public static int[] generate(final int size)
+    public static int[] generate(final int minValue, final int maxValue, final int size)
     {
         final ThreadLocalRandom random = ThreadLocalRandom.current();
-        return IntStream.generate(() -> random.nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE)).limit(size).toArray();
+        return IntStream.generate(() -> random.nextInt(minValue, maxValue + 1)).limit(size).toArray();
     }
 
     public static int[] copy(final int[] input)

@@ -5,70 +5,57 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.System.arraycopy;
 
-public class QuickSort
+class QuickSort
 {
-
-    private static final int[] EMPTY_ARRAY = new int[0];
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
-    public int[] sort(final int[] input)
+    public int[] sorted(final int[] input)
     {
-        return sorted(input, 0, input.length);
+        final int[] copy = new int[input.length];
+        arraycopy(input, 0, copy, 0, input.length);
+        sort(copy, 0, copy.length);
+        return copy;
     }
 
-    private int[] sorted(final int[] input, final int startIndex, final int length)
+    private void sort(final int[] input, final int offset, final int length)
     {
-        if (length == 0)
+        if (length < 2)
         {
-            return EMPTY_ARRAY;
+            return;
         }
-        else if (length == 1)
-        {
-            return new int[]{input[startIndex]};
-        }
-        else if (length == 2)
-        {
-            int[] result = new int[2];
-            if (input[startIndex] > input[startIndex + 1])
-            {
-                result[0] = input[startIndex + 1];
-                result[1] = input[startIndex];
-            }
-            else
-            {
-                result[0] = input[startIndex];
-                result[1] = input[startIndex + 1];
-            }
-            return result;
-        }
-        else
-        {
-            int pivotIndex = startIndex + random.nextInt(length);
-            final int[] result = new int[length];
-            int lowIndex = 0;
-            int highIndex = length - 1;
-            for (int i = startIndex; i < startIndex + length; i++)
-            {
-                if (i == pivotIndex)
-                {
-                    continue;
-                }
-                if (input[i] < input[pivotIndex])
-                {
-                    result[lowIndex++] = input[i];
-                }
-                else
-                {
-                    result[highIndex--] = input[i];
-                }
-            }
-            result[lowIndex] = input[pivotIndex];
-            int[] sortedLow = sorted(result, 0, lowIndex);
-            arraycopy(sortedLow, 0, result, 0, lowIndex);
-            int[] sortedHigh = sorted(result, lowIndex + 1, length - lowIndex - 1);
-            arraycopy(sortedHigh, 0, result, lowIndex + 1, length - lowIndex - 1);
 
-            return result;
+        int lowValuesLength = group(input, offset, length);
+        sort(input, offset, lowValuesLength);
+        sort(input, offset + lowValuesLength + 1, length - lowValuesLength - 1);
+    }
+
+    private int group(final int[] input, final int offset, final int length)
+    {
+        final int pivotIndex = offset + random.nextInt(0, length);
+        final int endIndex = offset + length - 1;
+
+        final int pivot = input[pivotIndex];
+        input[pivotIndex] = input[endIndex];
+
+        int lowValuesFrontIndex = offset;
+        for (int groupedValuesFrontIndex = offset; groupedValuesFrontIndex < endIndex; groupedValuesFrontIndex++)
+        {
+            int value = input[groupedValuesFrontIndex];
+            if (value < pivot)
+            {
+                if (groupedValuesFrontIndex > lowValuesFrontIndex)
+                {
+                    int evictedHighValue = input[lowValuesFrontIndex];
+                    input[lowValuesFrontIndex] = value;
+                    input[groupedValuesFrontIndex] = evictedHighValue;
+                }
+                lowValuesFrontIndex++;
+            }
         }
+
+        input[endIndex] = input[lowValuesFrontIndex];
+        input[lowValuesFrontIndex] = pivot;
+
+        return lowValuesFrontIndex - offset;
     }
 }
