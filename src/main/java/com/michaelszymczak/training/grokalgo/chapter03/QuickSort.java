@@ -11,51 +11,44 @@ class QuickSort
 
     public int[] sorted(final int[] input)
     {
-        final int[] copy = new int[input.length];
-        arraycopy(input, 0, copy, 0, input.length);
-        sort(copy, 0, copy.length);
-        return copy;
+        final int[] result = new int[input.length];
+        arraycopy(input, 0, result, 0, input.length);
+        return sort(result, 0, result.length - 1);
     }
 
-    private void sort(final int[] input, final int offset, final int length)
+    private int[] sort(final int[] input, final int startIndex, final int endIndex)
     {
-        if (length < 2)
+        if (endIndex - startIndex < 1)
         {
-            return;
+            return input;
         }
 
-        int lowValuesLength = group(input, offset, length);
-        sort(input, offset, lowValuesLength);
-        sort(input, offset + lowValuesLength + 1, length - lowValuesLength - 1);
+        int pivotIndex = group(input, startIndex, endIndex);
+        sort(input, startIndex, pivotIndex - 1);
+        sort(input, pivotIndex + 1, endIndex);
+
+        return input;
     }
 
-    private int group(final int[] input, final int offset, final int length)
+    private int group(final int[] input, final int startIndex, final int endIndex)
     {
-        final int pivotIndex = offset + random.nextInt(0, length);
-        final int endIndex = offset + length - 1;
-
-        final int pivot = input[pivotIndex];
+        int pivotIndex = random.nextInt(startIndex, endIndex + 1);
+        int pivot = input[pivotIndex];
         input[pivotIndex] = input[endIndex];
 
-        int lowValuesFrontIndex = offset;
-        for (int groupedValuesFrontIndex = offset; groupedValuesFrontIndex < endIndex; groupedValuesFrontIndex++)
+        int lowSectionIndex = startIndex;
+        for (int i = startIndex; i < endIndex; i++)
         {
-            int value = input[groupedValuesFrontIndex];
-            if (value < pivot)
+            if (input[i] < pivot)
             {
-                if (groupedValuesFrontIndex > lowValuesFrontIndex)
-                {
-                    int evictedHighValue = input[lowValuesFrontIndex];
-                    input[lowValuesFrontIndex] = value;
-                    input[groupedValuesFrontIndex] = evictedHighValue;
-                }
-                lowValuesFrontIndex++;
+                int tmp = input[lowSectionIndex];
+                input[lowSectionIndex] = input[i];
+                input[i] = tmp;
+                lowSectionIndex++;
             }
         }
-
-        input[endIndex] = input[lowValuesFrontIndex];
-        input[lowValuesFrontIndex] = pivot;
-
-        return lowValuesFrontIndex - offset;
+        input[endIndex] = input[lowSectionIndex];
+        input[lowSectionIndex] = pivot;
+        return lowSectionIndex;
     }
 }
