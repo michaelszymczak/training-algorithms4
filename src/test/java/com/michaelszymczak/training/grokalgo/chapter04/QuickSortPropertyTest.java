@@ -1,4 +1,4 @@
-package com.michaelszymczak.training.grokalgo.chapter03;
+package com.michaelszymczak.training.grokalgo.chapter04;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
