@@ -22,6 +22,6 @@ class Queue
 
     public void push(final int element)
     {
-        elements[tail++] = element;
+        elements[tail++ % 2] = element;
     }
 }

@@ -105,6 +105,26 @@ public class QueueTest
                         assertThat(queue.isEmpty()).isTrue();
                     }
                 }
+
+                @Nested
+                class GivenThirdElementAdded
+                {
+                    private final int thirdElement = secondElement + 1;
+
+                    @BeforeEach
+                    void setUp()
+                    {
+                        queue.push(thirdElement);
+                    }
+
+                    @Test
+                    void shouldReturnSecondAddedElement()
+                    {
+                        assertThat(queue.pop()).isEqualTo(secondElement);
+                    }
+                }
+
+
             }
         }
     }
