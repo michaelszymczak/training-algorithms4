@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+import static java.util.stream.IntStream.range;
+
 public class SetTest
 {
     @Test
@@ -67,12 +70,9 @@ public class SetTest
     void shouldAllowAddingManyElements()
     {
         Set set = new Set();
-        set.add(1);
-        set.add(2);
-        set.add(4);
-        set.add(5);
+        range(0, 100).forEach(set::add);
 
-        assertThat(set.contains(5)).isTrue();
+        range(0, 100).forEach(value -> assertThat(set.contains(value)));
     }
 
     @Test
@@ -81,46 +81,39 @@ public class SetTest
         Set set = new Set();
         set.add(0);
         set.add(Integer.MAX_VALUE);
+        set.add(-100);
         set.add(100_000);
         set.add(Integer.MIN_VALUE);
 
         assertThat(set.contains(0)).isTrue();
         assertThat(set.contains(Integer.MAX_VALUE)).isTrue();
-        assertThat(set.contains(Integer.MIN_VALUE)).isTrue();
+        assertThat(set.contains(-100)).isTrue();
         assertThat(set.contains(100_000)).isTrue();
+        assertThat(set.contains(Integer.MIN_VALUE)).isTrue();
     }
 
     private static class Set
     {
-        private final int[] elements = new int[10];
-        private int size = 0;
+        private final boolean[] elements = new boolean[10];
 
         public boolean contains(final int element)
         {
-            for (int i = 0; i < size; i++)
-            {
-                if (elements[i] == element)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return elements[hash(element)];
         }
 
         public void add(final int element)
         {
-            elements[size++] = element;
+            elements[hash(element)] = true;
         }
 
         public void remove(final int element)
         {
-            for (int i = 0; i < size; i++)
-            {
-                if (elements[i] == element)
-                {
-                    elements[i] = 0;
-                }
-            }
+            elements[hash(element)] = false;
+        }
+
+        private int hash(final int element)
+        {
+            return element == Integer.MIN_VALUE ? 0 : (Math.abs(element) % 10);
         }
     }
 }
