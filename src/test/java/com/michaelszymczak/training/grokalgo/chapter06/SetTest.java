@@ -75,6 +75,21 @@ public class SetTest
         assertThat(set.contains(5)).isTrue();
     }
 
+    @Test
+    void shouldAllowAddingElementsOfAnyValue()
+    {
+        Set set = new Set();
+        set.add(0);
+        set.add(Integer.MAX_VALUE);
+        set.add(100_000);
+        set.add(Integer.MIN_VALUE);
+
+        assertThat(set.contains(0)).isTrue();
+        assertThat(set.contains(Integer.MAX_VALUE)).isTrue();
+        assertThat(set.contains(Integer.MIN_VALUE)).isTrue();
+        assertThat(set.contains(100_000)).isTrue();
+    }
+
     private static class Set
     {
         private final int[] elements = new int[10];
