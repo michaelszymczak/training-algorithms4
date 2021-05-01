@@ -1,5 +1,7 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,12 +24,12 @@ public class QueueTest
     class GivenOneElement
     {
 
-        private static final int ELEMENT = 5;
+        private final int element = ThreadLocalRandom.current().nextInt(100);
 
         @BeforeEach
         void setUp()
         {
-            queue.push(ELEMENT);
+            queue.push(element);
         }
 
         @Test
@@ -46,7 +48,7 @@ public class QueueTest
         @Test
         void shouldReturnTheElement()
         {
-            assertThat(queue.pop()).isEqualTo(ELEMENT);
+            assertThat(queue.pop()).isEqualTo(element);
         }
     }
 

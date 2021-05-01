@@ -2,7 +2,7 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 
 class Queue
 {
-
+    private int element = 0;
     private boolean isEmpty = true;
 
     public boolean isEmpty()
@@ -17,11 +17,12 @@ class Queue
             throw new IllegalStateException("The queue is empty");
         }
         isEmpty = true;
-        return 5;
+        return element;
     }
 
     public void push(final int element)
     {
         isEmpty = false;
+        this.element = element;
     }
 }
