@@ -21,10 +21,13 @@ public class QueueTest
     @Nested
     class GivenOneElement
     {
+
+        private static final int ELEMENT = 5;
+
         @BeforeEach
         void setUp()
         {
-            queue.push(5);
+            queue.push(ELEMENT);
         }
 
         @Test
@@ -38,6 +41,12 @@ public class QueueTest
         {
             queue.pop();
             assertThat(queue.isEmpty()).isTrue();
+        }
+
+        @Test
+        void shouldReturnTheElement()
+        {
+            assertThat(queue.pop()).isEqualTo(ELEMENT);
         }
     }
 

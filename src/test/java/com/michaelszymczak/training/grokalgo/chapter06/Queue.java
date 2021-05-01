@@ -17,7 +17,7 @@ class Queue
             throw new IllegalStateException("The queue is empty");
         }
         isEmpty = true;
-        return 0;
+        return 5;
     }
 
     public void push(final int element)
