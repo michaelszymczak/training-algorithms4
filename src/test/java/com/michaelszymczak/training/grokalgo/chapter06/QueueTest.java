@@ -89,8 +89,23 @@ public class QueueTest
                 {
                     assertThat(queue.pop()).isEqualTo(secondElement);
                 }
+
+                @Nested
+                class GivenLastElementRemoved
+                {
+                    @BeforeEach
+                    void setUp()
+                    {
+                        queue.pop();
+                    }
+
+                    @Test
+                    void shouldBeEmptyAgain()
+                    {
+                        assertThat(queue.isEmpty()).isTrue();
+                    }
+                }
             }
         }
     }
-
 }
