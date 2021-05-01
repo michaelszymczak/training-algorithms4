@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
+import static java.lang.System.arraycopy;
 import static java.util.Arrays.fill;
 import static java.util.stream.IntStream.range;
 
@@ -118,6 +119,18 @@ public class SetTest
         assertThat(set.contains(1)).isTrue();
     }
 
+    @Test
+    void shouldKeepExistingElementsWhenBucketResized()
+    {
+        Set set = new Set(1, 1);
+        set.add(1);
+        assertThat(set.contains(1)).isTrue();
+
+        set.add(2);
+
+        assertThat(set.contains(1)).isTrue();
+    }
+
     private static class Set
     {
         private static final int SENTINEL = Integer.MIN_VALUE;
@@ -193,7 +206,8 @@ public class SetTest
                     }
                 }
                 int[] biggerBucket = new int[bucket.length * 2];
-                fill(biggerBucket, SENTINEL);
+                arraycopy(bucket, 0, biggerBucket, 0, bucket.length);
+                fill(biggerBucket, bucket.length, biggerBucket.length - 1, SENTINEL);
                 buckets[hash] = biggerBucket;
                 add(element);
             }
