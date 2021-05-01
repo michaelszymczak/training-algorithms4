@@ -53,7 +53,7 @@ public class SetResizeTest
 
         range(-100, 100).filter(value -> value % 3 == 0).forEach(set::remove);
 
-        range(-100, 100).filter(value -> value % 3 != 0).forEach(value -> assertThat(set.contains(value)).isTrue());
+        range(-100, 100).filter(value -> value % 3 != 0).forEach(value -> assertThat(set.contains(value)).withFailMessage("" + value).isTrue());
         range(-100, 100).filter(value -> value % 3 == 0).forEach(value -> assertThat(set.contains(value)).isFalse());
     }
 }
