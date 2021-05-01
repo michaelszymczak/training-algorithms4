@@ -1,6 +1,8 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
 
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -89,5 +91,23 @@ public class SetTest
         assertThat(set.contains(Integer.MAX_VALUE)).isFalse();
         assertThat(set.contains(100_000)).isFalse();
         assertThat(set.contains(Integer.MIN_VALUE)).isFalse();
+    }
+
+    @Test
+    void shouldHandleAddingAndRemovingElement()
+    {
+        IntStream.range(0, 100).forEach(
+                value ->
+                {
+                    assertThat(set.contains(value)).isFalse();
+                    set.add(value);
+                    assertThat(set.contains(value)).isTrue();
+                    set.add(value);
+                    assertThat(set.contains(value)).isTrue();
+                    set.remove(value);
+                    assertThat(set.contains(value)).isFalse();
+                    set.remove(value);
+                    assertThat(set.contains(value)).isFalse();
+                });
     }
 }
