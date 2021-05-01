@@ -57,12 +57,12 @@ class Set
         return false;
     }
 
-    public void add(final int element)
+    public Set add(final int element)
     {
         if (element == SENTINEL)
         {
             containsSentinel = true;
-            return;
+            return null;
         }
         if (!contains(element))
         {
@@ -74,7 +74,7 @@ class Set
                 {
                     bucket[i] = element;
                     elements[hash]++;
-                    return;
+                    return this;
                 }
             }
             int[] biggerBucket = new int[bucket.length * 2];
@@ -83,14 +83,15 @@ class Set
             buckets[hash] = biggerBucket;
             add(element);
         }
+        return this;
     }
 
-    public void remove(final int element)
+    public Set remove(final int element)
     {
         if (element == SENTINEL)
         {
             containsSentinel = false;
-            return;
+            return this;
         }
         if (contains(element))
         {
@@ -105,6 +106,7 @@ class Set
             }
             elements[hash(element)]--;
         }
+        return this;
     }
 
     private int hash(final int element)

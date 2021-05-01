@@ -10,6 +10,8 @@ import static java.util.stream.IntStream.range;
 
 public class SetTest
 {
+    private final Set set = new Set();
+
     @Test
     void shouldNotContainAnyElementsInitially()
     {
@@ -19,7 +21,6 @@ public class SetTest
     @Test
     void shouldContainAddedElement()
     {
-        Set set = new Set();
         set.add(4);
 
         assertThat(set.contains(4)).isTrue();
@@ -28,9 +29,7 @@ public class SetTest
     @Test
     void shouldNotContainRemovedElement()
     {
-        Set set = new Set();
-        set.add(4);
-        set.remove(4);
+        set.add(4).remove(4);
 
         assertThat(set.contains(4)).isFalse();
     }
@@ -38,7 +37,6 @@ public class SetTest
     @Test
     void shouldNotContainElementNotAdded()
     {
-        Set set = new Set();
         set.add(5);
 
         assertThat(set.contains(4)).isFalse();
@@ -47,9 +45,7 @@ public class SetTest
     @Test
     void shouldContainBothAddedElements()
     {
-        Set set = new Set();
-        set.add(1);
-        set.add(2);
+        set.add(1).add(2);
 
         assertThat(set.contains(1)).isTrue();
         assertThat(set.contains(2)).isTrue();
@@ -58,10 +54,7 @@ public class SetTest
     @Test
     void shouldRemoveElementRegardlessHowManyTimesAdded()
     {
-        Set set = new Set();
-        set.add(1);
-        set.add(1);
-        set.remove(1);
+        set.add(1).add(1).remove(1);
 
         assertThat(set.contains(1)).isFalse();
     }
@@ -69,7 +62,6 @@ public class SetTest
     @Test
     void shouldAllowAddingManyElements()
     {
-        Set set = new Set();
         range(0, 100).forEach(set::add);
 
         range(0, 100).forEach(value -> assertThat(set.contains(value)).isTrue());
@@ -78,12 +70,7 @@ public class SetTest
     @Test
     void shouldAllowAddingElementsOfAnyValue()
     {
-        Set set = new Set();
-        set.add(0);
-        set.add(Integer.MAX_VALUE);
-        set.add(-100);
-        set.add(100_000);
-        set.add(Integer.MIN_VALUE);
+        set.add(0).add(Integer.MAX_VALUE).add(-100).add(100_000).add(Integer.MIN_VALUE);
 
         assertThat(set.contains(0)).isTrue();
         assertThat(set.contains(Integer.MAX_VALUE)).isTrue();
@@ -95,7 +82,6 @@ public class SetTest
     @Test
     void shouldNotContainAnyValueApartExplicitlyAddedOnes()
     {
-        Set set = new Set();
         range(-100, 100).forEach(set::add);
 
         range(-200, -100).forEach(value -> assertThat(set.contains(value)).isFalse());
@@ -104,54 +90,4 @@ public class SetTest
         assertThat(set.contains(100_000)).isFalse();
         assertThat(set.contains(Integer.MIN_VALUE)).isFalse();
     }
-
-    @Test
-    void shouldExpandBucketIfNecessary()
-    {
-        Set set = new Set(1, 1);
-        set.add(0);
-        assertThat(set.contains(1)).isFalse();
-
-        set.add(1);
-
-        assertThat(set.contains(1)).isTrue();
-    }
-
-    @Test
-    void shouldKeepBothOldAndNewElementsWhenBucketResized()
-    {
-        Set set = new Set(1, 1);
-        set.add(1);
-        assertThat(set.contains(1)).isTrue();
-
-        set.add(2);
-
-        assertThat(set.contains(1)).isTrue();
-        assertThat(set.contains(2)).isTrue();
-    }
-
-    @Test
-    void shouldNotContainAnyOtherValuesApartFromExplicitlyInCaseOfResize()
-    {
-        Set set = new Set(1, 1);
-        set.add(1);
-        set.add(2);
-
-        range(-100, 1).forEach(value -> assertThat(set.contains(value)).isFalse());
-        range(3, 100).forEach(value -> assertThat(set.contains(value)).isFalse());
-    }
-
-    @Test
-    void shouldNotContainRemovedElementsAfterResize()
-    {
-        Set set = new Set(2, 4);
-        range(-100, 100).forEach(set::add);
-        range(-100, 100).forEach(value -> assertThat(set.contains(value)).isTrue());
-
-        range(-100, 100).filter(value -> value % 3 == 0).forEach(set::remove);
-
-        range(-100, 100).filter(value -> value % 3 != 0).forEach(value -> assertThat(set.contains(value)).isTrue());
-        range(-100, 100).filter(value -> value % 3 == 0).forEach(value -> assertThat(set.contains(value)).isFalse());
-    }
-
 }
