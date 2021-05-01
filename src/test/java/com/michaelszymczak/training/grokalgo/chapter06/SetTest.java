@@ -1,6 +1,7 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,7 +73,7 @@ public class SetTest
         Set set = new Set();
         range(0, 100).forEach(set::add);
 
-        range(0, 100).forEach(value -> assertThat(set.contains(value)));
+        range(0, 100).forEach(value -> assertThat(set.contains(value)).isTrue());
     }
 
     @Test
@@ -92,23 +93,38 @@ public class SetTest
         assertThat(set.contains(Integer.MIN_VALUE)).isTrue();
     }
 
+    @Test
+    @Disabled
+    void shouldNotContainAnyValueApartExplicitlyAddedOnes()
+    {
+        Set set = new Set();
+        range(-100, 100).forEach(set::add);
+
+        range(-200, -100).forEach(value -> assertThat(set.contains(value)).isFalse());
+        range(100, 200).forEach(value -> assertThat(set.contains(value)).isFalse());
+        assertThat(set.contains(Integer.MAX_VALUE)).isFalse();
+        assertThat(set.contains(100_000)).isFalse();
+        assertThat(set.contains(Integer.MIN_VALUE)).isFalse();
+    }
+
     private static class Set
     {
-        private final boolean[] elements = new boolean[10];
+        private final int[] elements = new int[10];
 
         public boolean contains(final int element)
         {
-            return elements[hash(element)];
+            return elements[hash(element)] > 0;
         }
 
         public void add(final int element)
         {
-            elements[hash(element)] = true;
+            int hash = hash(element);
+            elements[hash] = 1;
         }
 
         public void remove(final int element)
         {
-            elements[hash(element)] = false;
+            elements[hash(element)] = 0;
         }
 
         private int hash(final int element)
