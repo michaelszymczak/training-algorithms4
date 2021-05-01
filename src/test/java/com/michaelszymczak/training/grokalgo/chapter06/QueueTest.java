@@ -68,6 +68,14 @@ public class QueueTest
                 assertThat(queue.pop()).isEqualTo(A);
             }
 
+            @Test
+            void shouldNotAllowNewElements()
+            {
+                assertThatThrownBy(() -> queue.push(C)).isInstanceOf(IllegalStateException.class);
+
+                assertThat(queue.pop()).isEqualTo(A);
+            }
+
 
             @Nested
             class GivenB

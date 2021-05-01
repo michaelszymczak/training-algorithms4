@@ -22,6 +22,10 @@ class Queue
 
     public void push(final int element)
     {
+        if (!isEmpty() && tail % 2 == head)
+        {
+            throw new IllegalStateException("The queue is full");
+        }
         elements[tail++ % 2] = element;
     }
 }
