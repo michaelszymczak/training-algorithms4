@@ -143,6 +143,19 @@ public class SetTest
         range(3, 100).forEach(value -> assertThat(set.contains(value)).isFalse());
     }
 
+    @Test
+    void shouldNotContainRemovedElementsAfterResize()
+    {
+        Set set = new Set(2, 4);
+        range(-100, 100).forEach(set::add);
+        range(-100, 100).forEach(value -> assertThat(set.contains(value)).isTrue());
+
+        range(-100, 100).filter(value -> value % 3 == 0).forEach(set::remove);
+
+        range(-100, 100).filter(value -> value % 3 != 0).forEach(value -> assertThat(set.contains(value)).isTrue());
+        range(-100, 100).filter(value -> value % 3 == 0).forEach(value -> assertThat(set.contains(value)).isFalse());
+    }
+
     private static class Set
     {
         private static final int SENTINEL = Integer.MIN_VALUE;
