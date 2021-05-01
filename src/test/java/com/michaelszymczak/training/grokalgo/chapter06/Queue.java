@@ -2,10 +2,17 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 
 class Queue
 {
-    private final int[] elements = new int[2];
+    private final int[] elements;
+    private final int capacity;
     private int tail = 0;
     private int head = 0;
     private int size = 0;
+
+    public Queue(final int capacity)
+    {
+        this.elements = new int[capacity];
+        this.capacity = capacity;
+    }
 
     public boolean isEmpty()
     {
@@ -19,7 +26,7 @@ class Queue
             throw new IllegalStateException("The queue is empty");
         }
         int element = elements[head];
-        head = (head + 1) % 2;
+        head = (head + 1) % capacity;
         size--;
         return element;
     }
@@ -31,12 +38,12 @@ class Queue
             throw new IllegalStateException("The queue is full");
         }
         elements[tail] = element;
-        tail = (tail + 1) % 2;
+        tail = (tail + 1) % capacity;
         size++;
     }
 
     public boolean isFull()
     {
-        return size == 2;
+        return size == capacity;
     }
 }

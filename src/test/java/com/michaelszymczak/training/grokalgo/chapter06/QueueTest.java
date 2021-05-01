@@ -15,7 +15,7 @@ public class QueueTest
     private static final int B = A + 1;
     private static final int C = B + 1;
 
-    private final Queue queue = new Queue();
+    private final Queue queue = new Queue(2);
 
 
     @Test
