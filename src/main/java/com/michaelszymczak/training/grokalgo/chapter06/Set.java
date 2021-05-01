@@ -12,7 +12,7 @@ class Set
 
     public Set()
     {
-        this(8, 4);
+        this(128, 16);
     }
 
     public Set(final int bucketCount, final int initialBucketSize)
@@ -41,20 +41,19 @@ class Set
         {
             return containsSentinel;
         }
-        int nonMatchingElements = 0;
-        for (final int e : buckets[hash])
+
+        final int[] bucket = buckets[hash];
+        final int numberOfElementsInBucket = elementsInBucket[hash];
+        for (int i = 0; i < numberOfElementsInBucket; i++)
         {
+            int e = bucket[i];
             if (e == SENTINEL)
             {
-                continue;
+                throw new IllegalStateException();
             }
             if (e == element)
             {
                 return true;
-            }
-            if (nonMatchingElements++ == elementsInBucket[hash])
-            {
-                return false;
             }
         }
         return false;
@@ -103,7 +102,9 @@ class Set
             {
                 if (bucket[i] == element)
                 {
-                    bucket[i] = SENTINEL;
+                    int indexOfTheLastPresentElement = elementsInBucket[hash] - 1;
+                    bucket[i] = bucket[indexOfTheLastPresentElement];
+                    bucket[indexOfTheLastPresentElement] = SENTINEL;
                     elementsInBucket[hash]--;
                     break;
                 }

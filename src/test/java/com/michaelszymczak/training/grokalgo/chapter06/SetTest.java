@@ -12,7 +12,7 @@ import static java.util.stream.IntStream.range;
 
 public class SetTest
 {
-    private final Set set = new Set();
+    private final Set set = new Set(10, 4);
 
     @Test
     void shouldNotContainAnyElementsInitially()
@@ -67,6 +67,16 @@ public class SetTest
         range(0, 100).forEach(set::add);
 
         range(0, 100).forEach(value -> assertThat(set.contains(value)).isTrue());
+    }
+
+    @Test
+    void shouldBeAbleToRemoveAllElements()
+    {
+        range(0, 100).forEach(set::add);
+
+        range(0, 100).forEach(set::remove);
+
+        range(0, 100).forEach(value -> assertThat(set.contains(value)).isFalse());
     }
 
     @Test
