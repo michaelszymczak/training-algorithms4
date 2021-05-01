@@ -5,10 +5,11 @@ class Queue
     private final int[] elements = new int[2];
     private int tail = 0;
     private int head = 0;
+    private int size = 0;
 
     public boolean isEmpty()
     {
-        return head == tail;
+        return size == 0;
     }
 
     public int pop()
@@ -17,15 +18,20 @@ class Queue
         {
             throw new IllegalStateException("The queue is empty");
         }
-        return elements[head++ % 2];
+        int element = elements[head];
+        head = (head + 1) % 2;
+        size--;
+        return element;
     }
 
     public void push(final int element)
     {
-        if (!isEmpty() && tail % 2 == head)
+        if (size == 2)
         {
             throw new IllegalStateException("The queue is full");
         }
-        elements[tail++ % 2] = element;
+        elements[tail] = element;
+        tail = (tail + 1) % 2;
+        size++;
     }
 }

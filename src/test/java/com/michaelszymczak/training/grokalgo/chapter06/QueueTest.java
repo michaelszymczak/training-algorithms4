@@ -76,7 +76,6 @@ public class QueueTest
                 assertThat(queue.pop()).isEqualTo(A);
             }
 
-
             @Nested
             class GivenB
             {
