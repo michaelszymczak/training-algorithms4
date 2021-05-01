@@ -3,7 +3,6 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -83,6 +82,12 @@ public class QueueTest
                 void shouldNotBeEmpty()
                 {
                     assertThat(queue.isEmpty()).isFalse();
+                }
+
+                @Test
+                void shouldReturnSecondAddedElement()
+                {
+                    assertThat(queue.pop()).isEqualTo(secondElement);
                 }
             }
         }
