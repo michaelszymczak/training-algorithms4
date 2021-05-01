@@ -41,26 +41,48 @@ public class SetTest
         assertThat(set.contains(4)).isFalse();
     }
 
+    @Test
+    void shouldContainBothAddedElements()
+    {
+        Set set = new Set();
+        set.add(1);
+        set.add(2);
+
+        assertThat(set.contains(1)).isTrue();
+        assertThat(set.contains(2)).isTrue();
+    }
+
     private static class Set
     {
-
-        private boolean empty = true;
-        private int element;
+        private final int[] elements = new int[2];
+        private int size = 0;
 
         public boolean contains(final int element)
         {
-            return !empty && this.element == element;
+            for (int i = 0; i < size; i++)
+            {
+                if (elements[i] == element)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void add(final int element)
         {
-            empty = false;
-            this.element = element;
+            elements[size++] = element;
         }
 
         public void remove(final int element)
         {
-            empty = true;
+            for (int i = 0; i < size; i++)
+            {
+                if (elements[i] == element)
+                {
+                    elements[i] = 0;
+                }
+            }
         }
     }
 }
