@@ -52,9 +52,32 @@ public class SetTest
         assertThat(set.contains(2)).isTrue();
     }
 
+    @Test
+    void shouldRemoveElementRegardlesHowManyTimesAdded()
+    {
+        Set set = new Set();
+        set.add(1);
+        set.add(1);
+        set.remove(1);
+
+        assertThat(set.contains(1)).isFalse();
+    }
+
+    @Test
+    void shouldAllowAddingManyElements()
+    {
+        Set set = new Set();
+        set.add(1);
+        set.add(2);
+        set.add(4);
+        set.add(5);
+
+        assertThat(set.contains(5)).isTrue();
+    }
+
     private static class Set
     {
-        private final int[] elements = new int[2];
+        private final int[] elements = new int[10];
         private int size = 0;
 
         public boolean contains(final int element)
