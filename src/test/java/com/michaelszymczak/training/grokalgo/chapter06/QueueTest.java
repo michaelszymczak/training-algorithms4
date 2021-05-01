@@ -11,7 +11,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class QueueTest
 {
+    private static final int A = ThreadLocalRandom.current().nextInt(100);
+    private static final int B = A + 1;
+    private static final int C = B + 1;
+
     private final Queue queue = new Queue();
+
 
     @Test
     void shouldBeEmptyInitially()
@@ -21,15 +26,12 @@ public class QueueTest
     }
 
     @Nested
-    class GivenOneElement
+    class GivenA
     {
-
-        private final int firstElement = ThreadLocalRandom.current().nextInt(100);
-
         @BeforeEach
         void setUp()
         {
-            queue.push(firstElement);
+            queue.push(A);
         }
 
         @Test
@@ -48,29 +50,27 @@ public class QueueTest
         @Test
         void shouldReturnTheElement()
         {
-            assertThat(queue.pop()).isEqualTo(firstElement);
+            assertThat(queue.pop()).isEqualTo(A);
         }
 
         @Nested
-        class GivenTwoElements
+        class GivenAB
         {
-            private final int secondElement = firstElement + 1;
-
             @BeforeEach
             void setUp()
             {
-                queue.push(secondElement);
+                queue.push(B);
             }
 
             @Test
             void shouldReturnFirstAddedElement()
             {
-                assertThat(queue.pop()).isEqualTo(firstElement);
+                assertThat(queue.pop()).isEqualTo(A);
             }
 
 
             @Nested
-            class GivenOneElementRemoved
+            class GivenB
             {
                 @BeforeEach
                 void setUp()
@@ -87,11 +87,11 @@ public class QueueTest
                 @Test
                 void shouldReturnSecondAddedElement()
                 {
-                    assertThat(queue.pop()).isEqualTo(secondElement);
+                    assertThat(queue.pop()).isEqualTo(B);
                 }
 
                 @Nested
-                class GivenLastElementRemoved
+                class Given_
                 {
                     @BeforeEach
                     void setUp()
@@ -107,24 +107,36 @@ public class QueueTest
                 }
 
                 @Nested
-                class GivenThirdElementAdded
+                class GivenBC
                 {
-                    private final int thirdElement = secondElement + 1;
-
                     @BeforeEach
                     void setUp()
                     {
-                        queue.push(thirdElement);
+                        queue.push(C);
                     }
 
                     @Test
                     void shouldReturnSecondAddedElement()
                     {
-                        assertThat(queue.pop()).isEqualTo(secondElement);
+                        assertThat(queue.pop()).isEqualTo(B);
+                    }
+
+                    @Nested
+                    class GivenC
+                    {
+                        @BeforeEach
+                        void setUp()
+                        {
+                            queue.pop();
+                        }
+
+                        @Test
+                        void shouldReturnLastAddedElement()
+                        {
+                            assertThat(queue.pop()).isEqualTo(C);
+                        }
                     }
                 }
-
-
             }
         }
     }
