@@ -24,12 +24,12 @@ public class QueueTest
     class GivenOneElement
     {
 
-        private final int element = ThreadLocalRandom.current().nextInt(100);
+        private final int firstElement = ThreadLocalRandom.current().nextInt(100);
 
         @BeforeEach
         void setUp()
         {
-            queue.push(element);
+            queue.push(firstElement);
         }
 
         @Test
@@ -48,7 +48,25 @@ public class QueueTest
         @Test
         void shouldReturnTheElement()
         {
-            assertThat(queue.pop()).isEqualTo(element);
+            assertThat(queue.pop()).isEqualTo(firstElement);
+        }
+
+        @Nested
+        class GivenTwoElements
+        {
+            private final int secondElement = firstElement + 1;
+
+            @BeforeEach
+            void setUp()
+            {
+                queue.push(secondElement);
+            }
+
+            @Test
+            void shouldReturnFirstAddedElement()
+            {
+                assertThat(queue.pop()).isEqualTo(firstElement);
+            }
         }
     }
 
