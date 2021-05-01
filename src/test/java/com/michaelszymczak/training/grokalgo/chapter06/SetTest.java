@@ -106,19 +106,48 @@ public class SetTest
         assertThat(set.contains(Integer.MIN_VALUE)).isFalse();
     }
 
+    @Test
+    void shouldExpandBucketIfNecessary()
+    {
+        Set set = new Set(1, 1);
+        set.add(0);
+        assertThat(set.contains(1)).isFalse();
+
+        set.add(1);
+
+        assertThat(set.contains(1)).isTrue();
+    }
+
     private static class Set
     {
         private static final int SENTINEL = Integer.MIN_VALUE;
-        private final int[] elements = new int[10];
-        private final int[][] buckets = new int[10][15];
+        private final int bucketCount;
+        private final int[] elements;
+        private final int[][] buckets;
         private boolean containsSentinel = false;
 
         public Set()
         {
-            for (final int[] bucket : buckets)
+            this(10, 15);
+        }
+
+        public Set(final int bucketCount, final int initialBucketSize)
+        {
+            if (bucketCount < 1)
+            {
+                throw new IllegalArgumentException("Insufficient number of buckets");
+            }
+            if (initialBucketSize < 1)
+            {
+                throw new IllegalArgumentException("Insufficient initial bucket size");
+            }
+            this.bucketCount = bucketCount;
+            this.buckets = new int[this.bucketCount][initialBucketSize];
+            for (final int[] bucket : this.buckets)
             {
                 fill(bucket, SENTINEL);
             }
+            this.elements = new int[this.bucketCount];
         }
 
         public boolean contains(final int element)
@@ -159,10 +188,14 @@ public class SetTest
                     if (bucket[i] == SENTINEL)
                     {
                         bucket[i] = element;
-                        break;
+                        elements[hash]++;
+                        return;
                     }
                 }
-                elements[hash]++;
+                int[] biggerBucket = new int[bucket.length * 2];
+                fill(biggerBucket, SENTINEL);
+                buckets[hash] = biggerBucket;
+                add(element);
             }
         }
 
@@ -190,7 +223,7 @@ public class SetTest
 
         private int hash(final int element)
         {
-            return Math.abs(element) % 10;
+            return Math.abs(element) % bucketCount;
         }
     }
 }
