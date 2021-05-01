@@ -4,6 +4,7 @@ class Queue
 {
     private final int[] elements;
     private final int capacity;
+
     private int tail = 0;
     private int head = 0;
     private int size = 0;
@@ -14,9 +15,15 @@ class Queue
         this.capacity = capacity;
     }
 
-    public boolean isEmpty()
+    public void push(final int element)
     {
-        return size == 0;
+        if (isFull())
+        {
+            throw new IllegalStateException("The queue is full");
+        }
+        elements[tail] = element;
+        tail = (tail + 1) % capacity;
+        size++;
     }
 
     public int pop()
@@ -31,15 +38,9 @@ class Queue
         return element;
     }
 
-    public void push(final int element)
+    public boolean isEmpty()
     {
-        if (isFull())
-        {
-            throw new IllegalStateException("The queue is full");
-        }
-        elements[tail] = element;
-        tail = (tail + 1) % capacity;
-        size++;
+        return size == 0;
     }
 
     public boolean isFull()
