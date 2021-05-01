@@ -58,7 +58,7 @@ public class SetTest
     }
 
     @Test
-    void shouldRemoveElementRegardlesHowManyTimesAdded()
+    void shouldRemoveElementRegardlessHowManyTimesAdded()
     {
         Set set = new Set();
         set.add(1);
@@ -120,7 +120,7 @@ public class SetTest
     }
 
     @Test
-    void shouldKeepExistingElementsWhenBucketResized()
+    void shouldKeepBothOldAndNewElementsWhenBucketResized()
     {
         Set set = new Set(1, 1);
         set.add(1);
@@ -129,6 +129,18 @@ public class SetTest
         set.add(2);
 
         assertThat(set.contains(1)).isTrue();
+        assertThat(set.contains(2)).isTrue();
+    }
+
+    @Test
+    void shouldNotContainAnyOtherValuesApartFromExplicitlyInCaseOfResize()
+    {
+        Set set = new Set(1, 1);
+        set.add(1);
+        set.add(2);
+
+        range(-100, 1).forEach(value -> assertThat(set.contains(value)).isFalse());
+        range(3, 100).forEach(value -> assertThat(set.contains(value)).isFalse());
     }
 
     private static class Set
@@ -207,7 +219,7 @@ public class SetTest
                 }
                 int[] biggerBucket = new int[bucket.length * 2];
                 arraycopy(bucket, 0, biggerBucket, 0, bucket.length);
-                fill(biggerBucket, bucket.length, biggerBucket.length - 1, SENTINEL);
+                fill(biggerBucket, bucket.length, biggerBucket.length, SENTINEL);
                 buckets[hash] = biggerBucket;
                 add(element);
             }
