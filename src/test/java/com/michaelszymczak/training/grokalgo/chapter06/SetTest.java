@@ -32,19 +32,30 @@ public class SetTest
         assertThat(set.contains(4)).isFalse();
     }
 
+    @Test
+    void shouldNotContainElementNotAdded()
+    {
+        Set set = new Set();
+        set.add(5);
+
+        assertThat(set.contains(4)).isFalse();
+    }
+
     private static class Set
     {
 
         private boolean empty = true;
+        private int element;
 
         public boolean contains(final int element)
         {
-            return !empty;
+            return !empty && this.element == element;
         }
 
         public void add(final int element)
         {
             empty = false;
+            this.element = element;
         }
 
         public void remove(final int element)
