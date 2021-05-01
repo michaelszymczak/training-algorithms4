@@ -3,6 +3,7 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -66,6 +67,23 @@ public class QueueTest
             void shouldReturnFirstAddedElement()
             {
                 assertThat(queue.pop()).isEqualTo(firstElement);
+            }
+
+
+            @Nested
+            class GivenOneElementRemoved
+            {
+                @BeforeEach
+                void setUp()
+                {
+                    queue.pop();
+                }
+
+                @Test
+                void shouldNotBeEmpty()
+                {
+                    assertThat(queue.isEmpty()).isFalse();
+                }
             }
         }
     }

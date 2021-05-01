@@ -3,30 +3,29 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 class Queue
 {
     private int element = 0;
-    private boolean isEmpty = true;
+    private int size = 0;
 
     public boolean isEmpty()
     {
-        return isEmpty;
+        return size == 0;
     }
 
     public int pop()
     {
-        if (isEmpty)
+        if (size == 0)
         {
             throw new IllegalStateException("The queue is empty");
         }
-        isEmpty = true;
+        size--;
         return element;
     }
 
     public void push(final int element)
     {
-        if (isEmpty)
+        if (size == 0)
         {
             this.element = element;
         }
-        isEmpty = false;
-
+        size++;
     }
 }
