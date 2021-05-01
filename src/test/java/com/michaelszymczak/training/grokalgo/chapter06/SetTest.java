@@ -1,12 +1,12 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
+import static java.util.Arrays.fill;
 import static java.util.stream.IntStream.range;
 
 public class SetTest
@@ -94,7 +94,6 @@ public class SetTest
     }
 
     @Test
-    @Disabled
     void shouldNotContainAnyValueApartExplicitlyAddedOnes()
     {
         Set set = new Set();
@@ -111,11 +110,37 @@ public class SetTest
     {
         private static final int SENTINEL = Integer.MIN_VALUE;
         private final int[] elements = new int[10];
+        private final int[][] buckets = new int[10][15];
         private boolean containsSentinel = false;
+
+        public Set()
+        {
+            for (final int[] bucket : buckets)
+            {
+                fill(bucket, SENTINEL);
+            }
+        }
 
         public boolean contains(final int element)
         {
-            return (element == SENTINEL && containsSentinel) || elements[hash(element)] > 0;
+            if (element == SENTINEL)
+            {
+                return containsSentinel;
+            }
+            final int hash = hash(element);
+            if (elements[hash] == 0)
+            {
+                return false;
+            }
+            final int[] bucket = buckets[hash];
+            for (final int e : bucket)
+            {
+                if (e == element)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void add(final int element)
@@ -128,7 +153,16 @@ public class SetTest
             if (!contains(element))
             {
                 int hash = hash(element);
-                elements[hash] = 1;
+                int[] bucket = buckets[hash];
+                for (int i = 0; i < bucket.length; i++)
+                {
+                    if (bucket[i] == SENTINEL)
+                    {
+                        bucket[i] = element;
+                        break;
+                    }
+                }
+                elements[hash]++;
             }
         }
 
@@ -141,7 +175,16 @@ public class SetTest
             }
             if (contains(element))
             {
-                elements[hash(element)] = 0;
+                int[] bucket = buckets[hash(element)];
+                for (int i = 0; i < bucket.length; i++)
+                {
+                    if (bucket[i] == element)
+                    {
+                        bucket[i] = SENTINEL;
+                        break;
+                    }
+                }
+                elements[hash(element)]--;
             }
         }
 
