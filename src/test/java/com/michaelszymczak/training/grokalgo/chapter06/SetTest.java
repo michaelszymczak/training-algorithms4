@@ -109,27 +109,45 @@ public class SetTest
 
     private static class Set
     {
+        private static final int SENTINEL = Integer.MIN_VALUE;
         private final int[] elements = new int[10];
+        private boolean containsSentinel = false;
 
         public boolean contains(final int element)
         {
-            return elements[hash(element)] > 0;
+            return (element == SENTINEL && containsSentinel) || elements[hash(element)] > 0;
         }
 
         public void add(final int element)
         {
-            int hash = hash(element);
-            elements[hash] = 1;
+            if (element == SENTINEL)
+            {
+                containsSentinel = true;
+                return;
+            }
+            if (!contains(element))
+            {
+                int hash = hash(element);
+                elements[hash] = 1;
+            }
         }
 
         public void remove(final int element)
         {
-            elements[hash(element)] = 0;
+            if (element == SENTINEL)
+            {
+                containsSentinel = false;
+                return;
+            }
+            if (contains(element))
+            {
+                elements[hash(element)] = 0;
+            }
         }
 
         private int hash(final int element)
         {
-            return element == Integer.MIN_VALUE ? 0 : (Math.abs(element) % 10);
+            return Math.abs(element) % 10;
         }
     }
 }
