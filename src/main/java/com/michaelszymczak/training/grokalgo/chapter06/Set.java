@@ -13,7 +13,7 @@ class Set
 
     public Set()
     {
-        this(10, 15);
+        this(8, 4);
     }
 
     public Set(final int bucketCount, final int initialBucketSize)
