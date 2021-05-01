@@ -22,6 +22,7 @@ public class QueueTest
     void shouldBeEmptyInitially()
     {
         assertThat(queue.isEmpty()).isTrue();
+        assertThat(queue.isFull()).isFalse();
         assertThatThrownBy(queue::pop).isInstanceOf(IllegalStateException.class);
     }
 
@@ -38,6 +39,12 @@ public class QueueTest
         void shouldNotBeEmpty()
         {
             assertThat(queue.isEmpty()).isFalse();
+        }
+
+        @Test
+        void shouldNotBeFull()
+        {
+            assertThat(queue.isFull()).isFalse();
         }
 
         @Test
@@ -63,6 +70,12 @@ public class QueueTest
             }
 
             @Test
+            void shouldBeFull()
+            {
+                assertThat(queue.isFull()).isTrue();
+            }
+
+            @Test
             void shouldReturnFirstAddedElement()
             {
                 assertThat(queue.pop()).isEqualTo(A);
@@ -83,6 +96,12 @@ public class QueueTest
                 void setUp()
                 {
                     queue.pop();
+                }
+
+                @Test
+                void shouldNotBeFull()
+                {
+                    assertThat(queue.isFull()).isFalse();
                 }
 
                 @Test
@@ -110,6 +129,12 @@ public class QueueTest
                     void shouldBeEmptyAgain()
                     {
                         assertThat(queue.isEmpty()).isTrue();
+                    }
+
+                    @Test
+                    void shouldNotBeFull()
+                    {
+                        assertThat(queue.isFull()).isFalse();
                     }
                 }
 
