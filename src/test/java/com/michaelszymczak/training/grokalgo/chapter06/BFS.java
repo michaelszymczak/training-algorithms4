@@ -13,6 +13,7 @@ public class BFS
             return true;
         }
         final Queue queue = new Queue(10);
+        final Set set = new Set();
         for (int i = 0; i < graph[startNode].length; i++)
         {
             queue.push(graph[startNode][i]);
@@ -28,7 +29,12 @@ public class BFS
             {
                 for (int i = 0; i < graph[nodeToCheck].length; i++)
                 {
-                    queue.push(graph[nodeToCheck][i]);
+                    int nextNodeToCheck = graph[nodeToCheck][i];
+                    if (!set.contains(nextNodeToCheck))
+                    {
+                        queue.push(nextNodeToCheck);
+                        set.add(nextNodeToCheck);
+                    }
                 }
             }
         }

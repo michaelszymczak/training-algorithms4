@@ -97,4 +97,14 @@ public class BFSTest
                 new int[]{}
         }, 1, 4)).isEqualTo(true);
     }
+
+    @Test
+    void shouldNotBeDistractedByCycles()
+    {
+        assertThat(new BFS().pathExists(new int[][]{
+                new int[]{1},
+                new int[]{0},
+                new int[]{}
+        }, 0, 2)).isEqualTo(false);
+    }
 }
