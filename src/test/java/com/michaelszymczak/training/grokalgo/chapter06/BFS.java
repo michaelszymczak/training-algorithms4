@@ -24,6 +24,13 @@ public class BFS
             {
                 return true;
             }
+            else
+            {
+                if (graph[nodeToCheck].length > 0)
+                {
+                    queue.push(graph[nodeToCheck][0]);
+                }
+            }
         }
 
         return false;

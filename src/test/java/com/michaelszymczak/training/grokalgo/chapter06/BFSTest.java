@@ -79,4 +79,14 @@ public class BFSTest
                 new int[]{}
         }, 0, 2)).isEqualTo(true);
     }
+
+    @Test
+    void shouldFindPathRequiringTwoHops()
+    {
+        assertThat(new BFS().pathExists(new int[][]{
+                new int[]{1},
+                new int[]{2},
+                new int[]{}
+        }, 0, 2)).isEqualTo(true);
+    }
 }
