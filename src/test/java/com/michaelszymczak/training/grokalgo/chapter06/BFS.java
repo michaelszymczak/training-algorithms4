@@ -15,9 +15,15 @@ public class BFS
         {
             return new int[]{startNode};
         }
+        final Queue queue = new Queue(10);
         for (int i = 0; i < graph[startNode].length; i++)
         {
-            if (graph[startNode][i] == endNode)
+            queue.push(graph[startNode][i]);
+        }
+        while (!queue.isEmpty())
+        {
+            int nodeToCheck = queue.pop();
+            if (nodeToCheck == endNode)
             {
                 return new int[]{startNode, endNode};
             }
