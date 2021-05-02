@@ -13,11 +13,11 @@ public class BFS
         }
         if (endNode == startNode)
         {
-            return new int[] {startNode};
+            return new int[]{startNode};
         }
-        if (graph[0][0] == 1)
+        if (graph[0][0] == endNode)
         {
-            return new int[] {0,1};
+            return new int[]{0, endNode};
         }
 
         return NO_PATH;
