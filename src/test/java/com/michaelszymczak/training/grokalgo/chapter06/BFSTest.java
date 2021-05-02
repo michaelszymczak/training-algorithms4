@@ -9,74 +9,74 @@ public class BFSTest
     @Test
     void shouldShowEmptyPathWhenEmptyGraph()
     {
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
 
-        }, 0, 0)).isEqualTo(BFS.NO_PATH);
+        }, 0, 0)).isEqualTo(false);
     }
 
     @Test
     void shouldFindTheSingleNode()
     {
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{}
-        }, 0, 0)).isEqualTo(new int[]{0});
+        }, 0, 0)).isEqualTo(true);
     }
 
     @Test
     void shouldNotFindAnyPathIfTheSingleNodeDoesNotMatchTheSoughtOne()
     {
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{}
-        }, 1, 2)).isEqualTo(BFS.NO_PATH);
+        }, 1, 2)).isEqualTo(false);
     }
 
     @Test
     void shouldNotFindAnyPathIfTwoNodesNotConnected()
     {
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{},
                 new int[]{}
-        }, 0, 1)).isEqualTo(BFS.NO_PATH);
+        }, 0, 1)).isEqualTo(false);
 
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{},
                 new int[]{}
-        }, 1, 0)).isEqualTo(BFS.NO_PATH);
+        }, 1, 0)).isEqualTo(false);
 
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{1},
                 new int[]{}
-        }, 1, 0)).isEqualTo(BFS.NO_PATH);
+        }, 1, 0)).isEqualTo(false);
     }
 
     @Test
     void shouldFindDirectPathAsTheOnlyEdge()
     {
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{1},
                 new int[]{}
-        }, 0, 1)).isEqualTo(new int[]{0, 1});
+        }, 0, 1)).isEqualTo(true);
 
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{2},
                 new int[]{},
                 new int[]{}
-        }, 0, 2)).isEqualTo(new int[]{0, 2});
+        }, 0, 2)).isEqualTo(true);
 
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{},
                 new int[]{0},
                 new int[]{}
-        }, 1, 0)).isEqualTo(new int[]{1, 0});
+        }, 1, 0)).isEqualTo(true);
     }
 
     @Test
     void shouldFindDirectPath()
     {
-        assertThat(new BFS().shortestPath(new int[][]{
+        assertThat(new BFS().pathExists(new int[][]{
                 new int[]{1, 2},
                 new int[]{},
                 new int[]{}
-        }, 0, 2)).isEqualTo(new int[]{0, 2});
+        }, 0, 2)).isEqualTo(true);
     }
 }

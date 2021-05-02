@@ -2,18 +2,15 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 
 public class BFS
 {
-
-    public static final int[] NO_PATH = new int[0];
-
-    public int[] shortestPath(final int[][] graph, final int startNode, final int endNode)
+    public boolean pathExists(final int[][] graph, final int startNode, final int endNode)
     {
         if (graph.length < startNode + 1)
         {
-            return NO_PATH;
+            return false;
         }
         if (endNode == startNode)
         {
-            return new int[]{startNode};
+            return true;
         }
         final Queue queue = new Queue(10);
         for (int i = 0; i < graph[startNode].length; i++)
@@ -22,13 +19,13 @@ public class BFS
         }
         while (!queue.isEmpty())
         {
-            int nodeToCheck = queue.pop();
+            final int nodeToCheck = queue.pop();
             if (nodeToCheck == endNode)
             {
-                return new int[]{startNode, endNode};
+                return true;
             }
         }
 
-        return NO_PATH;
+        return false;
     }
 }
