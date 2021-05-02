@@ -4,15 +4,14 @@ public class BFS
 {
     public boolean pathExists(final int[][] graph, final int startNode, final int endNode)
     {
-        int nodeToCheck = startNode;
-        if (graph.length < nodeToCheck + 1)
+        if (Math.max(startNode, endNode) > graph.length - 1)
         {
             return false;
         }
 
         final Queue queue = new Queue(10);
         final Set set = new Set();
-
+        int nodeToCheck = startNode;
         while (true)
         {
             if (nodeToCheck == endNode)

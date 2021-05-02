@@ -7,11 +7,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BFSTest
 {
     @Test
-    void shouldShowEmptyPathWhenEmptyGraph()
+    void shouldNotFindAnyPathInEmptyGraph()
     {
         assertThat(new BFS().pathExists(new int[][]{
 
         }, 0, 0)).isEqualTo(false);
+    }
+
+    @Test
+    void shouldNotFindAnyPathWhenNodesNotInGraph()
+    {
+        assertThat(new BFS().pathExists(new int[][]{
+                new int[]{0}
+        }, 0, 1)).isEqualTo(false);
+        
+        assertThat(new BFS().pathExists(new int[][]{
+                new int[]{0}
+        }, 1, 0)).isEqualTo(false);
     }
 
     @Test
