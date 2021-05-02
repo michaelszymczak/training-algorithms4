@@ -15,9 +15,12 @@ public class BFS
         {
             return new int[]{startNode};
         }
-        if (graph[startNode].length > 0 && graph[startNode][0] == endNode)
+        for (int i = 0; i < graph[startNode].length; i++)
         {
-            return new int[]{startNode, endNode};
+            if (graph[startNode][i] == endNode)
+            {
+                return new int[]{startNode, endNode};
+            }
         }
 
         return NO_PATH;
