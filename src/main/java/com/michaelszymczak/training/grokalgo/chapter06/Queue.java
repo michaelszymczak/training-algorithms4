@@ -2,8 +2,9 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 
 class Queue
 {
-    private final int[] elements;
-    private final int capacity;
+    private int[] elements;
+    private int capacity;
+    private final boolean resizeable;
 
     private int tail = 0;
     private int head = 0;
@@ -11,12 +12,27 @@ class Queue
 
     public Queue(final int capacity)
     {
+        this(capacity, false);
+    }
+
+    public Queue(final int capacity, final boolean resizeable)
+    {
         this.elements = new int[capacity];
         this.capacity = capacity;
+        this.resizeable = resizeable;
     }
 
     public void push(final int element)
     {
+        if (size == capacity - 1 && resizeable)
+        {
+            int newCapacity = this.capacity * 2;
+            int[] newElements = new int[newCapacity];
+            System.arraycopy(this.elements, 0, newElements, 0, this.capacity);
+            this.capacity = newCapacity;
+            this.elements = newElements;
+
+        }
         if (isFull())
         {
             throw new IllegalStateException("The queue is full");
