@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+import static java.util.stream.IntStream.range;
+
 public class BFSTest
 {
     @Test
@@ -20,7 +23,7 @@ public class BFSTest
         assertThat(new BFS().pathExists(new int[][]{
                 new int[]{0}
         }, 0, 1)).isEqualTo(false);
-        
+
         assertThat(new BFS().pathExists(new int[][]{
                 new int[]{0}
         }, 1, 0)).isEqualTo(false);
@@ -124,5 +127,13 @@ public class BFSTest
                 new int[]{0, 2},
                 new int[]{}
         }, 0, 2)).isEqualTo(true);
+    }
+
+    @Test
+    void shouldHandleLargerGraph()
+    {
+        final int[][] largeGraph = new int[100][100];
+        range(0, 100).forEach(i -> largeGraph[i] = range(0, 100).toArray());
+        assertThat(new BFS().pathExists(largeGraph, 71, 19)).isEqualTo(true);
     }
 }

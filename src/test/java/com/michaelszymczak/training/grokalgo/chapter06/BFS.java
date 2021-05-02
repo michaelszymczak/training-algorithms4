@@ -9,7 +9,7 @@ public class BFS
             return false;
         }
 
-        final Queue queue = new Queue(10);
+        final Queue queue = new Queue(10, true);
         final Set set = new Set();
         int nodeToCheck = startNode;
         while (true)
