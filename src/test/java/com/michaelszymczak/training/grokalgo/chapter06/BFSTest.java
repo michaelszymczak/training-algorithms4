@@ -54,29 +54,29 @@ public class BFSTest
     {
         assertThat(new BFS().shortestPath(new int[][]{
                 new int[]{1},
-                new int[]{},
-                }, 0, 1)).isEqualTo(new int[]{0, 1});
+                new int[]{}
+        }, 0, 1)).isEqualTo(new int[]{0, 1});
 
         assertThat(new BFS().shortestPath(new int[][]{
                 new int[]{2},
                 new int[]{},
-                new int[]{},
-                }, 0, 2)).isEqualTo(new int[]{0, 2});
+                new int[]{}
+        }, 0, 2)).isEqualTo(new int[]{0, 2});
 
         assertThat(new BFS().shortestPath(new int[][]{
                 new int[]{},
                 new int[]{0},
-                new int[]{},
-                }, 1, 0)).isEqualTo(new int[]{1, 0});
+                new int[]{}
+        }, 1, 0)).isEqualTo(new int[]{1, 0});
     }
 
     @Test
     void shouldFindDirectPath()
     {
         assertThat(new BFS().shortestPath(new int[][]{
-                new int[]{1,2},
+                new int[]{1, 2},
                 new int[]{},
-                new int[]{},
-                }, 0, 2)).isEqualTo(new int[]{0, 2});
+                new int[]{}
+        }, 0, 2)).isEqualTo(new int[]{0, 2});
     }
 }
