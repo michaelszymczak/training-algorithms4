@@ -115,6 +115,7 @@ class Set
 
     private int hash(final int element)
     {
-        return element == Integer.MIN_VALUE ? 0 : Math.abs(element) % bucketCount;
+        int hash = element % bucketCount;
+        return hash < 0 ? -hash : hash;
     }
 }
