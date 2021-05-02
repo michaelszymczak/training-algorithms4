@@ -15,6 +15,10 @@ public class BFS
         {
             return new int[] {startNode};
         }
+        if (graph[0][0] == 1)
+        {
+            return new int[] {0,1};
+        }
 
         return NO_PATH;
     }

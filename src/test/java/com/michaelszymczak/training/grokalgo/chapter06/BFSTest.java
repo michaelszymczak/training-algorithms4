@@ -9,16 +9,16 @@ public class BFSTest
     @Test
     void shouldShowEmptyPathWhenEmptyGraph()
     {
-        assertThat(new BFS().shortestPath(new int[][] {
+        assertThat(new BFS().shortestPath(new int[][]{
 
-        },0, 0)).isEqualTo(BFS.NO_PATH);
+        }, 0, 0)).isEqualTo(BFS.NO_PATH);
     }
 
     @Test
     void shouldFindTheSingleNode()
     {
         assertThat(new BFS().shortestPath(new int[][]{
-                new int[0]
+                new int[]{}
         }, 0, 0)).isEqualTo(new int[]{0});
     }
 
@@ -26,7 +26,16 @@ public class BFSTest
     void shouldNotFindAnyPathIfTheSingleNodeDoesNotMatchTheSoughtOne()
     {
         assertThat(new BFS().shortestPath(new int[][]{
-                new int[0]
+                new int[]{}
         }, 1, 2)).isEqualTo(BFS.NO_PATH);
+    }
+
+    @Test
+    void shouldFindDirectPath()
+    {
+        assertThat(new BFS().shortestPath(new int[][]{
+                new int[]{1},
+                new int[]{},
+                }, 0, 1)).isEqualTo(new int[]{0, 1});
     }
 }
