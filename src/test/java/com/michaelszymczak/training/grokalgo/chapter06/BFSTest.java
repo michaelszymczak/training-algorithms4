@@ -37,6 +37,16 @@ public class BFSTest
                 new int[]{},
                 new int[]{}
         }, 0, 1)).isEqualTo(BFS.NO_PATH);
+
+        assertThat(new BFS().shortestPath(new int[][]{
+                new int[]{},
+                new int[]{}
+        }, 1, 0)).isEqualTo(BFS.NO_PATH);
+
+        assertThat(new BFS().shortestPath(new int[][]{
+                new int[]{1},
+                new int[]{}
+        }, 1, 0)).isEqualTo(BFS.NO_PATH);
     }
 
     @Test
