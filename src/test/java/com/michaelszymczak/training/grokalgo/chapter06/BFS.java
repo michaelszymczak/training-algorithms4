@@ -15,7 +15,7 @@ public class BFS
         {
             return new int[]{startNode};
         }
-        if (graph[startNode][0] == endNode)
+        if (graph[startNode].length > 0 && graph[startNode][0] == endNode)
         {
             return new int[]{startNode, endNode};
         }

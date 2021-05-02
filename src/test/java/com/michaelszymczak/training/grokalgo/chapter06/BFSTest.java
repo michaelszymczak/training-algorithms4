@@ -31,6 +31,15 @@ public class BFSTest
     }
 
     @Test
+    void shouldNotFindAnyPathIfTwoNodesNotConnected()
+    {
+        assertThat(new BFS().shortestPath(new int[][]{
+                new int[]{},
+                new int[]{}
+        }, 0, 1)).isEqualTo(BFS.NO_PATH);
+    }
+
+    @Test
     void shouldFindDirectPath()
     {
         assertThat(new BFS().shortestPath(new int[][]{
