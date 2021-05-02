@@ -88,5 +88,13 @@ public class BFSTest
                 new int[]{2},
                 new int[]{}
         }, 0, 2)).isEqualTo(true);
+
+        assertThat(new BFS().pathExists(new int[][]{
+                new int[]{3},
+                new int[]{0,2},
+                new int[]{0,4,3},
+                new int[]{},
+                new int[]{}
+        }, 1, 4)).isEqualTo(true);
     }
 }

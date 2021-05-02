@@ -26,9 +26,9 @@ public class BFS
             }
             else
             {
-                if (graph[nodeToCheck].length > 0)
+                for (int i = 0; i < graph[nodeToCheck].length; i++)
                 {
-                    queue.push(graph[nodeToCheck][0]);
+                    queue.push(graph[nodeToCheck][i]);
                 }
             }
         }
