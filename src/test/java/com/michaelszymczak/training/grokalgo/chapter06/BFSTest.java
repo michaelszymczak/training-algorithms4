@@ -43,5 +43,11 @@ public class BFSTest
                 new int[]{},
                 new int[]{},
                 }, 0, 2)).isEqualTo(new int[]{0, 2});
+
+        assertThat(new BFS().shortestPath(new int[][]{
+                new int[]{},
+                new int[]{0},
+                new int[]{},
+                }, 1, 0)).isEqualTo(new int[]{1, 0});
     }
 }
