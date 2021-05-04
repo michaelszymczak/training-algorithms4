@@ -1,6 +1,6 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-public class BFS
+final public class BFS
 {
     public boolean pathExists(final int[][] graph, final int startNode, final int endNode)
     {

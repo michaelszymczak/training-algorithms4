@@ -1,6 +1,6 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-class Queue
+final class Queue
 {
     private int[] elements;
     private int capacity;
@@ -26,11 +26,11 @@ class Queue
     {
         if (size == capacity - 1 && resizeable)
         {
-            int newCapacity = this.capacity * 2;
+            int newCapacity = capacity * 2;
             int[] newElements = new int[newCapacity];
-            System.arraycopy(this.elements, 0, newElements, 0, this.capacity);
-            this.capacity = newCapacity;
-            this.elements = newElements;
+            System.arraycopy(elements, 0, newElements, 0, capacity);
+            capacity = newCapacity;
+            elements = newElements;
 
         }
         if (isFull())
