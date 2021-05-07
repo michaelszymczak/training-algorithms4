@@ -2,6 +2,13 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 
 public class GraphSearchAlgo
 {
+    private final boolean depthFirst;
+
+    public GraphSearchAlgo(final boolean depthFirst)
+    {
+        this.depthFirst = depthFirst;
+    }
+
     public boolean pathExists(final int[][] graph, final int startNode, final int endNode)
     {
         if (Math.max(startNode, endNode) > graph.length - 1)
@@ -9,7 +16,7 @@ public class GraphSearchAlgo
             return false;
         }
 
-        final FifoQueue queue = new FifoQueue(10, true);
+        final Queue queue = depthFirst ? new Stack(10, true) : new FifoQueue(10, true);
         final Set set = new Set();
         int nodeToCheck = startNode;
         while (true)
