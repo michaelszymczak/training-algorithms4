@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class QueueResizeTest
+public class FifoQueueResizeTest
 {
     @Test
     void shouldPreventResizingIfNotConfiguredToDoSo()
     {
-        final Queue queue = new Queue(1, false);
+        final FifoQueue queue = new FifoQueue(1, false);
         queue.push(0);
 
         assertThat(queue.isFull()).isTrue();
@@ -22,7 +22,7 @@ public class QueueResizeTest
     @Test
     void shouldBeNeverFullIfResizeable()
     {
-        final Queue queue = new Queue(2, true);
+        final FifoQueue queue = new FifoQueue(2, true);
         IntStream.range(0, 100).forEach(
                 value ->
                 {
@@ -36,7 +36,7 @@ public class QueueResizeTest
     @Test
     void shouldExpandBeyondInitialCapacity()
     {
-        final Queue queue = new Queue(2, true);
+        final FifoQueue queue = new FifoQueue(2, true);
         queue.push(1);
         queue.push(2);
         queue.push(3);

@@ -9,7 +9,7 @@ public class GraphSearchAlgo
             return false;
         }
 
-        final Queue queue = new Queue(10, true);
+        final FifoQueue queue = new FifoQueue(10, true);
         final Set set = new Set();
         int nodeToCheck = startNode;
         while (true)

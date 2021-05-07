@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class QueuePropertyTest
+public class FifoQueuePropertyTest
 {
     @Test
     void shouldAddAsManyElementsAsCapacityAllows()
     {
-        Queue queue = new Queue(3);
+        FifoQueue queue = new FifoQueue(3);
         queue.push(1);
         queue.push(2);
         queue.push(3);
@@ -24,7 +24,7 @@ public class QueuePropertyTest
     @Test
     void shouldRemoveAllAddedElements()
     {
-        Queue queue = new Queue(3);
+        FifoQueue queue = new FifoQueue(3);
         queue.push(1);
         queue.push(2);
         queue.push(3);
@@ -41,7 +41,7 @@ public class QueuePropertyTest
     @Test
     void shouldReturnAllAddedElementsInTheFirstInFirstOutOrder()
     {
-        Queue queue = new Queue(50);
+        FifoQueue queue = new FifoQueue(50);
         int[] inputs = Fixtures.generate(-100, 100, 50);
 
         for (final int input : inputs)

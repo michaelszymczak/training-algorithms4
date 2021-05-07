@@ -1,18 +1,20 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-final class Stack implements Queue
+final class FifoQueue implements Queue
 {
     private final boolean resizeable;
     private int[] elements;
     private int capacity;
+    private int tail = 0;
+    private int head = 0;
     private int size = 0;
 
-    public Stack(final int capacity)
+    public FifoQueue(final int capacity)
     {
         this(capacity, false);
     }
 
-    public Stack(final int capacity, final boolean resizeable)
+    public FifoQueue(final int capacity, final boolean resizeable)
     {
         this.elements = new int[capacity];
         this.capacity = capacity;
@@ -32,9 +34,11 @@ final class Stack implements Queue
         }
         if (isFull())
         {
-            throw new IllegalStateException("The stack is full");
+            throw new IllegalStateException("The queue is full");
         }
-        elements[size++] = element;
+        elements[tail] = element;
+        tail = (tail + 1) % capacity;
+        size++;
     }
 
     @Override
@@ -42,9 +46,12 @@ final class Stack implements Queue
     {
         if (isEmpty())
         {
-            throw new IllegalStateException("The stack is empty");
+            throw new IllegalStateException("The queue is empty");
         }
-        return elements[size-- - 1];
+        int element = elements[head];
+        head = (head + 1) % capacity;
+        size--;
+        return element;
     }
 
     @Override

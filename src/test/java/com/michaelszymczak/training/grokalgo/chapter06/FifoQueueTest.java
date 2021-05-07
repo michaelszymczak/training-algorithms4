@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class QueueTest
+public class FifoQueueTest
 {
     private static final int A = ThreadLocalRandom.current().nextInt(100);
     private static final int B = A + 1;
     private static final int C = B + 1;
 
-    private final Queue queue = new Queue(2);
+    private final FifoQueue queue = new FifoQueue(2);
 
 
     @Test
