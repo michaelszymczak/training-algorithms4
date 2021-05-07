@@ -9,7 +9,7 @@ import static java.util.stream.IntStream.range;
 
 public abstract class GraphSearchTest
 {
-    protected abstract BFS graphSearch();
+    protected abstract GraphSearch graphSearch();
 
     @Test
     void shouldNotFindAnyPathInEmptyGraph()

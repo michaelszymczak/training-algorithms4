@@ -1,10 +1,13 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-public class BFSTest extends GraphSearchTest
+import org.junit.jupiter.api.Disabled;
+
+@Disabled
+public class DFSTest extends GraphSearchTest
 {
     @Override
     protected GraphSearch graphSearch()
     {
-        return new BFS();
+        return new DFS();
     }
 }
