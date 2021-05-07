@@ -1,6 +1,5 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -10,10 +9,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class QueueResizeTest
 {
-    private static final int A = ThreadLocalRandom.current().nextInt(100);
-    private static final int B = A + 1;
-    private static final int C = B + 1;
-
     @Test
     void shouldPreventResizingIfNotConfiguredToDoSo()
     {

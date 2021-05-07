@@ -1,20 +1,18 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-final class Queue
+final class Stack
 {
     private final boolean resizeable;
     private int[] elements;
     private int capacity;
-    private int tail = 0;
-    private int head = 0;
     private int size = 0;
 
-    public Queue(final int capacity)
+    public Stack(final int capacity)
     {
         this(capacity, false);
     }
 
-    public Queue(final int capacity, final boolean resizeable)
+    public Stack(final int capacity, final boolean resizeable)
     {
         this.elements = new int[capacity];
         this.capacity = capacity;
@@ -33,23 +31,18 @@ final class Queue
         }
         if (isFull())
         {
-            throw new IllegalStateException("The queue is full");
+            throw new IllegalStateException("The stack is full");
         }
-        elements[tail] = element;
-        tail = (tail + 1) % capacity;
-        size++;
+        elements[size++] = element;
     }
 
     public int pop()
     {
         if (isEmpty())
         {
-            throw new IllegalStateException("The queue is empty");
+            throw new IllegalStateException("The stack is empty");
         }
-        int element = elements[head];
-        head = (head + 1) % capacity;
-        size--;
-        return element;
+        return elements[size-- - 1];
     }
 
     public boolean isEmpty()
