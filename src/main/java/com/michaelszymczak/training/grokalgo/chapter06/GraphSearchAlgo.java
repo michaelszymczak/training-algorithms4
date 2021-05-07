@@ -2,11 +2,15 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 
 public class GraphSearchAlgo
 {
-    private final boolean depthFirst;
+    private final SearchType searchType;
+    private final int capacity;
+    private final boolean resizeable;
 
-    public GraphSearchAlgo(final boolean depthFirst)
+    public GraphSearchAlgo(final SearchType searchType, final int capacity, final boolean resizeable)
     {
-        this.depthFirst = depthFirst;
+        this.searchType = searchType;
+        this.capacity = capacity;
+        this.resizeable = resizeable;
     }
 
     public boolean pathExists(final int[][] graph, final int startNode, final int endNode)
@@ -15,8 +19,7 @@ public class GraphSearchAlgo
         {
             return false;
         }
-
-        final Queue queue = depthFirst ? new Stack(10, true) : new FifoQueue(10, true);
+        final Queue queue = searchType.createQueue(capacity, resizeable);
         final Set set = new Set();
         int nodeToCheck = startNode;
         while (true)
@@ -42,5 +45,25 @@ public class GraphSearchAlgo
             }
             nodeToCheck = queue.pop();
         }
+    }
+
+    enum SearchType
+    {
+        BREADTH_FIRST
+                {
+                    Queue createQueue(int capacity, boolean resizeable)
+                    {
+                        return new FifoQueue(capacity, resizeable);
+                    }
+                },
+        DEPTH_FIRST
+                {
+                    Queue createQueue(int capacity, boolean resizeable)
+                    {
+                        return new Stack(capacity, resizeable);
+                    }
+                };
+
+        abstract Queue createQueue(int capacity, boolean resizeable);
     }
 }
