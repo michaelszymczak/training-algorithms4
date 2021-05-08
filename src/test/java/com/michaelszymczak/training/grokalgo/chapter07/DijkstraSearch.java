@@ -34,7 +34,12 @@ public class DijkstraSearch
                 }
             }
         }
-        Queue path = new Stack(graph.length, true);
+        return constructPath(parents, startNode, endNode);
+    }
+
+    private int[] constructPath(final int[] parents, final int startNode, final int endNode)
+    {
+        final Queue path = new Stack(10, true);
         int currentNode = endNode;
         while (true)
         {
