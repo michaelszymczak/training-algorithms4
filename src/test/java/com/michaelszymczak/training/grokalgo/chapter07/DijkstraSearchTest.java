@@ -38,6 +38,40 @@ class DijkstraSearchTest
                         },
                 0, 0
         )).isEqualTo(new int[]{0});
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X, X},
+                        new int[]{X, X},
+                        },
+                0, 0
+        )).isEqualTo(new int[]{0});
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X},
+                        },
+                0, 0
+        )).isEqualTo(new int[]{0});
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{4},
+                        },
+                0, 0
+        )).isEqualTo(new int[]{0});
+    }
+
+    @Test
+    void shouldNotFindAnyPathWhenNoEdgesPresent()
+    {
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X, X},
+                        new int[]{X, X},
+                        },
+                0, 1
+        )).isEqualTo(new int[0]);
     }
 
     @Test

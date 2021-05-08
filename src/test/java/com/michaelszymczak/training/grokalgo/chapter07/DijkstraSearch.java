@@ -45,7 +45,7 @@ public class DijkstraSearch
         {
             if (currentNode == Integer.MIN_VALUE)
             {
-                break;
+                return new int[0];
             }
             path.push(currentNode);
             if (currentNode == startNode)
