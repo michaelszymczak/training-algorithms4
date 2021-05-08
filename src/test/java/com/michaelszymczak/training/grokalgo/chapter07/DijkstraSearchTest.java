@@ -8,6 +8,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.NO_PATH;
 import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.X;
+import static com.michaelszymczak.training.grokalgo.chapter07.GraphRepresentations.m;
+import static com.michaelszymczak.training.grokalgo.chapter07.GraphRepresentations.p;
 
 class DijkstraSearchTest
 {
@@ -16,126 +18,102 @@ class DijkstraSearchTest
     @Test
     void shouldNotFindAnyPathInEmptyGraph()
     {
-        assertThat(search.shortestPath(
-                new int[][]{
-
-                },
-                1, 2
-        )).isEqualTo(NO_PATH);
+        assertThat(search.shortestPath(m(""), 1, 2)).isEqualTo(NO_PATH);
     }
 
     @Test
     void shouldFindTheOnlyNode()
     {
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{4}
-                },
-                0, 0
-        )).isEqualTo(new int[]{0});
+        assertThat(search.shortestPath(m(
+                " _" +
+                "|4"
+        ), 0, 0)).isEqualTo(p("0"));
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{4, X},
-                        new int[]{X, X},
-                        },
-                0, 0
-        )).isEqualTo(new int[]{0});
+        assertThat(search.shortestPath(m(
+                " __" +
+                "|4." +
+                "|.."
+        ), 0, 0)).isEqualTo(p("0"));
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X, X},
-                        new int[]{X, X},
-                        },
-                0, 0
-        )).isEqualTo(new int[]{0});
+        assertThat(search.shortestPath(m(
+                " __" +
+                "|.." +
+                "|.."
+        ), 0, 0)).isEqualTo(p("0"));
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X},
-                        },
-                0, 0
-        )).isEqualTo(new int[]{0});
+        assertThat(search.shortestPath(m(
+                " _" +
+                "|."
+        ), 0, 0)).isEqualTo(p("0"));
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{4},
-                        },
-                0, 0
-        )).isEqualTo(new int[]{0});
+        assertThat(search.shortestPath(m(
+                " _" +
+                "|4"
+        ), 0, 0)).isEqualTo(p("0"));
     }
 
     @Test
     void shouldNotFindAnyPathWhenNoEdgesPresent()
     {
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X, X},
-                        new int[]{X, X},
-                        },
-                0, 1
-        )).isEqualTo(NO_PATH);
-
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X},
-                        },
-                0, 1
-        )).isEqualTo(NO_PATH);
+        assertThat(search.shortestPath(m(
+                " __" +
+                "|.." +
+                "|.."
+        ), 0, 1)).isEqualTo(NO_PATH);
     }
 
     @Test
     void shouldNotFindAnyPathIfNodeDoesNotExist()
     {
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X},
-                        },
-                0, 1
-        )).isEqualTo(NO_PATH);
+        assertThat(search.shortestPath(m(
+                " _" +
+                "|."
+        ), 0, 1)).isEqualTo(NO_PATH);
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X},
-                        },
-                1, 0
-        )).isEqualTo(NO_PATH);
+        assertThat(search.shortestPath(m(
+                " _" +
+                "|."
+        ), 1, 0)).isEqualTo(NO_PATH);
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X},
-                        },
-                1, 1
-        )).isEqualTo(NO_PATH);
+        assertThat(search.shortestPath(m(
+                " _" +
+                "|."
+        ), 1, 1)).isEqualTo(NO_PATH);
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X},
-                        },
-                1, 2
-        )).isEqualTo(NO_PATH);
+        assertThat(search.shortestPath(m(
+                " _" +
+                "|."
+        ), 1, 2)).isEqualTo(NO_PATH);
     }
 
     @Test
     void shouldFindSimplePathBetweenNodes()
     {
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X, 4},
-                        new int[]{X, X},
-                        },
-                0, 1
-        )).isEqualTo(new int[]{0, 1});
+        assertThat(search.shortestPath(m(
+                " __" +
+                "|.4" +
+                "|.."
+        ), 0, 1)).isEqualTo(p("0,1"));
 
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X, X, X, X},
-                        new int[]{4, X, X, 4},
-                        new int[]{X, X, X, X},
-                        new int[]{X, X, X, X},
-                        },
-                1, 3
-        )).isEqualTo(new int[]{1, 3});
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|...." +
+                "|4..4" +
+                "|...." +
+                "|...."
+        ), 1, 3)).isEqualTo(p("1,3"));
+    }
+
+    @Test
+    void shouldFindAPathWithOneHop()
+    {
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|.4.." +
+                "|..4." +
+                "|...." +
+                "|...."
+        ), 0, 2)).isEqualTo(p("0,1,2"));
     }
 
     @Test
@@ -156,19 +134,5 @@ class DijkstraSearchTest
                 },
                 0, 0
         )).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void shouldFindAPathWithOneHop()
-    {
-        assertThat(search.shortestPath(
-                new int[][]{
-                        new int[]{X, 4, X, X},
-                        new int[]{X, X, 4, X},
-                        new int[]{X, X, X, X},
-                        new int[]{X, X, X, X},
-                        },
-                0, 2
-        )).isEqualTo(new int[]{0, 1, 2});
     }
 }
