@@ -9,6 +9,11 @@ final public class BFS implements GraphSearch
     @Override
     public boolean pathExists(final int[][] graph, final int startNode, final int endNode)
     {
-        return algo.pathExists(graph, startNode, endNode);
+        return algo.path(graph, startNode, endNode).length > 0;
+    }
+
+    public int[] shortestPath(final int[][] graph, final int startNode, final int endNode)
+    {
+        return algo.path(graph, startNode, endNode);
     }
 }

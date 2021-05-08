@@ -3,7 +3,7 @@ package com.michaelszymczak.training.grokalgo.chapter07;
 import java.util.Arrays;
 
 
-import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.X;
+import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.NO_EDGE;
 
 public class GraphRepresentations
 {
@@ -29,7 +29,7 @@ public class GraphRepresentations
             for (int col = 0; col < rows[row].length(); col++)
             {
                 String ch = String.valueOf(rows[row].charAt(col));
-                result[row][col] = ".".equals(ch) ? X : Integer.parseInt(ch);
+                result[row][col] = ".".equals(ch) ? NO_EDGE : Integer.parseInt(ch);
             }
         }
         return result;

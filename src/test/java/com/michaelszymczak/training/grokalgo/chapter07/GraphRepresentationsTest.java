@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.X;
+import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.NO_EDGE;
 
 class GraphRepresentationsTest
 {
@@ -19,14 +19,14 @@ class GraphRepresentationsTest
     void shouldRepresentNoEdgeAsDot()
     {
         assertThat(GraphRepresentations.m("|.")).isEqualTo(new int[][]{
-                new int[]{X}
+                new int[]{NO_EDGE}
         });
         assertThat(GraphRepresentations.m(
                 "|.." +
                 "|.."
         )).isEqualTo(new int[][]{
-                new int[]{X, X},
-                new int[]{X, X}
+                new int[]{NO_EDGE, NO_EDGE},
+                new int[]{NO_EDGE, NO_EDGE}
         });
     }
 
@@ -49,14 +49,14 @@ class GraphRepresentationsTest
                 " _" +
                 "|."
         )).isEqualTo(new int[][]{
-                new int[]{X}
+                new int[]{NO_EDGE}
         });
 
         assertThat(GraphRepresentations.m(
                 "__" +
                 "|."
         )).isEqualTo(new int[][]{
-                new int[]{X}
+                new int[]{NO_EDGE}
         });
 
         assertThat(GraphRepresentations.m(
@@ -65,8 +65,8 @@ class GraphRepresentationsTest
                 "|.." +
                 "|.."
         )).isEqualTo(new int[][]{
-                new int[]{X, X},
-                new int[]{X, X}
+                new int[]{NO_EDGE, NO_EDGE},
+                new int[]{NO_EDGE, NO_EDGE}
         });
 
         assertThat(GraphRepresentations.m(

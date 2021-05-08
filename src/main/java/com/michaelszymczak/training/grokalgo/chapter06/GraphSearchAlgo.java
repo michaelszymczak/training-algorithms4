@@ -13,12 +13,13 @@ public class GraphSearchAlgo
         this.resizeable = resizeable;
     }
 
-    public boolean pathExists(final int[][] graph, final int startNode, final int endNode)
+    public int[] path(final int[][] graph, final int startNode, final int endNode)
     {
         if (Math.max(startNode, endNode) > graph.length - 1)
         {
-            return false;
+            return Path.NO_PATH;
         }
+        final Path path = new Path(graph.length);
         final Queue queue = searchType.createQueue(capacity, resizeable);
         final Set set = new Set();
         int nodeToCheck = startNode;
@@ -26,7 +27,7 @@ public class GraphSearchAlgo
         {
             if (nodeToCheck == endNode)
             {
-                return true;
+                return path.generate(startNode, endNode);
             }
 
             for (int i = 0; i < graph[nodeToCheck].length; i++)
@@ -36,12 +37,13 @@ public class GraphSearchAlgo
                 {
                     queue.push(nextNodeToCheck);
                     set.add(nextNodeToCheck);
+                    path.addParent(nextNodeToCheck, nodeToCheck);
                 }
             }
 
             if (queue.isEmpty())
             {
-                return false;
+                return Path.NO_PATH;
             }
             nodeToCheck = queue.pop();
         }

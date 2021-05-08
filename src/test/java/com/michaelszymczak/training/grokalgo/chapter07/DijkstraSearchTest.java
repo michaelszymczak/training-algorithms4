@@ -6,8 +6,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
-import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.NO_PATH;
-import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.X;
+import static com.michaelszymczak.training.grokalgo.chapter06.Path.NO_PATH;
+import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.NO_EDGE;
 import static com.michaelszymczak.training.grokalgo.chapter07.GraphRepresentations.m;
 import static com.michaelszymczak.training.grokalgo.chapter07.GraphRepresentations.p;
 
@@ -121,16 +121,16 @@ class DijkstraSearchTest
     {
         assertThatThrownBy(() -> search.shortestPath(
                 new int[][]{
-                        new int[]{X, X, X, X},
-                        new int[]{4, X, X, 4}
+                        new int[]{NO_EDGE, NO_EDGE, NO_EDGE, NO_EDGE},
+                        new int[]{4, NO_EDGE, NO_EDGE, 4}
                 },
                 2, 1
         )).isInstanceOf(IllegalArgumentException.class);
 
         assertThatThrownBy(() -> search.shortestPath(
                 new int[][]{
-                        new int[]{X, X, X, X},
-                        new int[]{4, X, X, 4}
+                        new int[]{NO_EDGE, NO_EDGE, NO_EDGE, NO_EDGE},
+                        new int[]{4, NO_EDGE, NO_EDGE, 4}
                 },
                 0, 0
         )).isInstanceOf(IllegalArgumentException.class);
