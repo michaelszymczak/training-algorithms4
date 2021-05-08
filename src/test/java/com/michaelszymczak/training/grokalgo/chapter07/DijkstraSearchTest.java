@@ -49,5 +49,15 @@ class DijkstraSearchTest
                         },
                 0, 1
         )).isEqualTo(new int[]{0, 1});
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X, X, X, X},
+                        new int[]{4, X, X, 4},
+                        new int[]{X, X, X, X},
+                        new int[]{X, X, X, X},
+                        },
+                1, 3
+        )).isEqualTo(new int[]{1, 3});
     }
 }
