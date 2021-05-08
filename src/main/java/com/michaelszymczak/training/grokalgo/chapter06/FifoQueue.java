@@ -1,6 +1,6 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-final class FifoQueue implements Queue
+public final class FifoQueue implements Queue
 {
     private final boolean resizeable;
     private int[] elements;
@@ -64,5 +64,11 @@ final class FifoQueue implements Queue
     public boolean isFull()
     {
         return size == capacity;
+    }
+
+    @Override
+    public int size()
+    {
+        return size;
     }
 }

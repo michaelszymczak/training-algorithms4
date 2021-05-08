@@ -58,4 +58,10 @@ final class Stack implements Queue
     {
         return size == capacity;
     }
+
+    @Override
+    public int size()
+    {
+        return size;
+    }
 }

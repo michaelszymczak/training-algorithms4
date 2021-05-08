@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class DijkstraSearchTest
 {
+    public static final int X = Integer.MIN_VALUE;
     private final DijkstraSearch search = new DijkstraSearch();
 
     @Test
@@ -24,9 +25,29 @@ class DijkstraSearchTest
     {
         assertThat(search.shortestPath(
                 new int[][]{
-                        new int[]{0}
+                        new int[]{4}
                 },
                 0, 0
         )).isEqualTo(new int[]{0});
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{4, X},
+                        new int[]{X, X},
+                        },
+                0, 0
+        )).isEqualTo(new int[]{0});
+    }
+
+    @Test
+    void shouldFindSimplePathBetweenNodes()
+    {
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X, 4},
+                        new int[]{X, X},
+                        },
+                0, 1
+        )).isEqualTo(new int[]{0, 1});
     }
 }
