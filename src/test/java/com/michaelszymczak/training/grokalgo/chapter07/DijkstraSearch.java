@@ -4,6 +4,13 @@ public class DijkstraSearch
 {
     public int[] shortestPath(final int[][] graph, final int startNode, final int endNode)
     {
+        for (final int[] ints : graph)
+        {
+            if (ints.length != graph.length)
+            {
+                throw new IllegalArgumentException("The graph should be in the adjacency matrix format");
+            }
+        }
         if (graph.length == 0)
         {
             return new int[0];

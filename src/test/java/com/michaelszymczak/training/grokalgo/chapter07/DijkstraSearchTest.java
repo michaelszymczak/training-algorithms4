@@ -3,6 +3,7 @@ package com.michaelszymczak.training.grokalgo.chapter07;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class DijkstraSearchTest
 {
@@ -59,5 +60,25 @@ class DijkstraSearchTest
                         },
                 1, 3
         )).isEqualTo(new int[]{1, 3});
+    }
+
+    @Test
+    void shouldRejectInvalidGraph()
+    {
+        assertThatThrownBy(() -> search.shortestPath(
+                new int[][]{
+                        new int[]{X, X, X, X},
+                        new int[]{4, X, X, 4}
+                },
+                2, 1
+        )).isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> search.shortestPath(
+                new int[][]{
+                        new int[]{X, X, X, X},
+                        new int[]{4, X, X, 4}
+                },
+                0, 0
+        )).isInstanceOf(IllegalArgumentException.class);
     }
 }
