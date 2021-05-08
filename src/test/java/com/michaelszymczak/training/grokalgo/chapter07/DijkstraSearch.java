@@ -7,6 +7,9 @@ import com.michaelszymczak.training.grokalgo.chapter06.Stack;
 
 public class DijkstraSearch
 {
+    public static final int[] NO_PATH = new int[0];
+    public static final int X = Integer.MIN_VALUE;
+
     public int[] shortestPath(final int[][] graph, final int startNode, final int endNode)
     {
         for (final int[] ints : graph)
@@ -18,20 +21,20 @@ public class DijkstraSearch
         }
         if (startNode >= graph.length || endNode >= graph.length)
         {
-            return new int[0];
+            return NO_PATH;
         }
         final int[] parents = new int[graph.length];
-        Arrays.fill(parents, Integer.MIN_VALUE);
+        Arrays.fill(parents, X);
         if (graph.length == 0)
         {
-            return new int[0];
+            return NO_PATH;
         }
         for (int originNodeIndex = 0; originNodeIndex < graph.length; originNodeIndex++)
         {
             int[] originNodeNeighbours = graph[originNodeIndex];
             for (int targetNodeIndex = 0; targetNodeIndex < originNodeNeighbours.length; targetNodeIndex++)
             {
-                boolean hasEdge = originNodeNeighbours[targetNodeIndex] != Integer.MIN_VALUE;
+                boolean hasEdge = originNodeNeighbours[targetNodeIndex] != X;
                 if (hasEdge)
                 {
                     parents[targetNodeIndex] = originNodeIndex;
@@ -47,9 +50,9 @@ public class DijkstraSearch
         int currentNode = endNode;
         while (true)
         {
-            if (currentNode == Integer.MIN_VALUE)
+            if (currentNode == X)
             {
-                return new int[0];
+                return NO_PATH;
             }
             path.push(currentNode);
             if (currentNode == startNode)

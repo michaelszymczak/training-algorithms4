@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+
+import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.NO_PATH;
+import static com.michaelszymczak.training.grokalgo.chapter07.DijkstraSearch.X;
+
 class DijkstraSearchTest
 {
-    public static final int X = Integer.MIN_VALUE;
     private final DijkstraSearch search = new DijkstraSearch();
 
     @Test
@@ -18,7 +21,7 @@ class DijkstraSearchTest
 
                 },
                 1, 2
-        )).isEqualTo(new int[0]);
+        )).isEqualTo(NO_PATH);
     }
 
     @Test
@@ -71,14 +74,14 @@ class DijkstraSearchTest
                         new int[]{X, X},
                         },
                 0, 1
-        )).isEqualTo(new int[0]);
+        )).isEqualTo(NO_PATH);
 
         assertThat(search.shortestPath(
                 new int[][]{
                         new int[]{X},
                         },
                 0, 1
-        )).isEqualTo(new int[0]);
+        )).isEqualTo(NO_PATH);
     }
 
     @Test
@@ -89,28 +92,28 @@ class DijkstraSearchTest
                         new int[]{X},
                         },
                 0, 1
-        )).isEqualTo(new int[0]);
+        )).isEqualTo(NO_PATH);
 
         assertThat(search.shortestPath(
                 new int[][]{
                         new int[]{X},
                         },
                 1, 0
-        )).isEqualTo(new int[0]);
+        )).isEqualTo(NO_PATH);
 
         assertThat(search.shortestPath(
                 new int[][]{
                         new int[]{X},
                         },
                 1, 1
-        )).isEqualTo(new int[0]);
+        )).isEqualTo(NO_PATH);
 
         assertThat(search.shortestPath(
                 new int[][]{
                         new int[]{X},
                         },
                 1, 2
-        )).isEqualTo(new int[0]);
+        )).isEqualTo(NO_PATH);
     }
 
     @Test
