@@ -72,6 +72,45 @@ class DijkstraSearchTest
                         },
                 0, 1
         )).isEqualTo(new int[0]);
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X},
+                        },
+                0, 1
+        )).isEqualTo(new int[0]);
+    }
+
+    @Test
+    void shouldNotFindAnyPathIfNodeDoesNotExist()
+    {
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X},
+                        },
+                0, 1
+        )).isEqualTo(new int[0]);
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X},
+                        },
+                1, 0
+        )).isEqualTo(new int[0]);
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X},
+                        },
+                1, 1
+        )).isEqualTo(new int[0]);
+
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X},
+                        },
+                1, 2
+        )).isEqualTo(new int[0]);
     }
 
     @Test

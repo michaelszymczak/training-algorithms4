@@ -16,6 +16,10 @@ public class DijkstraSearch
                 throw new IllegalArgumentException("The graph should be in the adjacency matrix format");
             }
         }
+        if (startNode >= graph.length || endNode >= graph.length)
+        {
+            return new int[0];
+        }
         final int[] parents = new int[graph.length];
         Arrays.fill(parents, Integer.MIN_VALUE);
         if (graph.length == 0)
