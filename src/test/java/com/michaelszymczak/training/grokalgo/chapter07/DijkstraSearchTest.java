@@ -81,4 +81,18 @@ class DijkstraSearchTest
                 0, 0
         )).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void shouldFindAPathWithOneHop()
+    {
+        assertThat(search.shortestPath(
+                new int[][]{
+                        new int[]{X, 4, X, X},
+                        new int[]{X, X, 4, X},
+                        new int[]{X, X, X, X},
+                        new int[]{X, X, X, X},
+                        },
+                0, 2
+        )).isEqualTo(new int[]{0, 1, 2});
+    }
 }

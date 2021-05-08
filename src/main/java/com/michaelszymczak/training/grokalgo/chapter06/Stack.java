@@ -1,6 +1,6 @@
 package com.michaelszymczak.training.grokalgo.chapter06;
 
-final class Stack implements Queue
+public final class Stack implements Queue
 {
     private final boolean resizeable;
     private int[] elements;
