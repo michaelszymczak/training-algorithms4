@@ -15,15 +15,18 @@ public class DijkstraSearch
 
     private static int nextNodeToCheck(int[] nodeCosts, Set visitedNodes)
     {
+        int lowestCost = Integer.MAX_VALUE;
+        int cheapestNode = NO_NODE;
         for (int node = 0; node < nodeCosts.length; node++)
         {
-            if (!visitedNodes.contains(node))
+            if (!visitedNodes.contains(node) && nodeCosts[node] < lowestCost)
             {
-                visitedNodes.add(node);
-                return node;
+                lowestCost = nodeCosts[node];
+                cheapestNode = node;
             }
         }
-        return NO_NODE;
+        visitedNodes.add(cheapestNode);
+        return cheapestNode;
     }
 
     public int[] shortestPath(final int[][] graph, final int startNode, final int endNode)
@@ -45,7 +48,7 @@ public class DijkstraSearch
         }
         final Path path = new Path(graph.length);
         final int[] nodeCosts = new int[graph.length];
-        Arrays.fill(nodeCosts, Integer.MAX_VALUE / 2);
+        Arrays.fill(nodeCosts, Integer.MAX_VALUE);
         nodeCosts[startNode] = 0;
         final Set nodesChecked = new Set();
 

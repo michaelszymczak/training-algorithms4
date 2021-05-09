@@ -119,6 +119,26 @@ class DijkstraSearchTest
     }
 
     @Test
+    void shouldIgnoreUnreachablePaths()
+    {
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|...." +
+                "|...." +
+                "|...." +
+                "|...."
+        ), 1, 2)).isEqualTo(p(""));
+
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|..4." +
+                "|..4." +
+                "|...." +
+                "|...."
+        ), 0, 2)).isEqualTo(p("0,2"));
+    }
+
+    @Test
     void shouldFindAPathWithOneHop()
     {
         assertThat(search.shortestPath(m(
@@ -196,8 +216,18 @@ class DijkstraSearchTest
                 "|...." +
                 "|..1."
         ), 0, 2)).isEqualTo(p("0,1,2"));
+    }
 
-
+    @Test
+    void shouldPrioritizeCheaperToReachNodesToBeSureThatThereIsNoCheaperWayToReachThemOnceVisited()
+    {
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|.81." +
+                "|...1" +
+                "|.1.3" +
+                "|...."
+        ), 0, 3)).isEqualTo(p("0,2,1,3"));
     }
 
     @Test
