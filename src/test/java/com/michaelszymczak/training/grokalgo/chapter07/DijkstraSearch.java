@@ -60,10 +60,11 @@ public class DijkstraSearch
             int[] originNodeNeighbours = graph[node];
             for (int targetNode = 0; targetNode < originNodeNeighbours.length; targetNode++)
             {
-                boolean hasEdge = originNodeNeighbours[targetNode] != NO_EDGE;
-                if (hasEdge && nodeCosts[targetNode] > nodeCosts[node])
+                int edgeWeight = originNodeNeighbours[targetNode];
+                boolean hasEdge = edgeWeight != NO_EDGE;
+                if (hasEdge && nodeCosts[targetNode] > nodeCosts[node] + edgeWeight)
                 {
-                    nodeCosts[targetNode] = nodeCosts[node] + 1;
+                    nodeCosts[targetNode] = nodeCosts[node] + edgeWeight;
                     path.addParent(targetNode, node);
                 }
             }

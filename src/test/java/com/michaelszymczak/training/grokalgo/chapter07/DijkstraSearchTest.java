@@ -179,6 +179,28 @@ class DijkstraSearchTest
     }
 
     @Test
+    void shouldPreferLowerCostOverFewerHops()
+    {
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|4441" +
+                "|..4." +
+                "|...." +
+                "|..2."
+        ), 0, 2)).isEqualTo(p("0,3,2"));
+
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|4245" +
+                "|..1." +
+                "|...." +
+                "|..1."
+        ), 0, 2)).isEqualTo(p("0,1,2"));
+
+
+    }
+
+    @Test
     void shouldRejectInvalidGraph()
     {
         assertThatThrownBy(() -> search.shortestPath(
