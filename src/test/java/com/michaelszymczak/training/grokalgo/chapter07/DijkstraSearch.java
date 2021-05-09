@@ -13,20 +13,30 @@ public class DijkstraSearch
 {
     public static final int NO_EDGE = Integer.MIN_VALUE;
 
-    private static int nextNodeToCheck(int[] nodeCosts, Set visitedNodes)
+    private static final int UNREACHABLE = Integer.MAX_VALUE;
+
+    private static int findNextConfirmedCheapestToReachNode(int[] nodeCosts, Set nodesWithFinalCostConfirmed)
     {
-        int lowestCost = Integer.MAX_VALUE;
+        int lowestCost = UNREACHABLE;
         int cheapestNode = NO_NODE;
         for (int node = 0; node < nodeCosts.length; node++)
         {
-            if (!visitedNodes.contains(node) && nodeCosts[node] < lowestCost)
+            if (!nodesWithFinalCostConfirmed.contains(node) && nodeCosts[node] < lowestCost)
             {
                 lowestCost = nodeCosts[node];
                 cheapestNode = node;
             }
         }
-        visitedNodes.add(cheapestNode);
+        nodesWithFinalCostConfirmed.add(cheapestNode);
         return cheapestNode;
+    }
+
+    private static int[] initializeRunningCosts(final int[][] graph, final int startNode)
+    {
+        final int[] runningNodeCosts = new int[graph.length];
+        Arrays.fill(runningNodeCosts, UNREACHABLE);
+        runningNodeCosts[startNode] = 0;
+        return runningNodeCosts;
     }
 
     public int[] shortestPath(final int[][] graph, final int startNode, final int endNode)
@@ -42,20 +52,14 @@ public class DijkstraSearch
         {
             return Path.NO_PATH;
         }
-        if (graph.length == 0)
-        {
-            return Path.NO_PATH;
-        }
-        final Path path = new Path(graph.length);
-        final int[] nodeCosts = new int[graph.length];
-        Arrays.fill(nodeCosts, Integer.MAX_VALUE);
-        nodeCosts[startNode] = 0;
-        final Set nodesChecked = new Set();
 
+        final Path path = new Path(graph.length);
+        final Set nodesWithFinalCostConfirmed = new Set();
+        final int[] runningNodeCosts = initializeRunningCosts(graph, startNode);
         int node;
         while (true)
         {
-            node = nextNodeToCheck(nodeCosts, nodesChecked);
+            node = findNextConfirmedCheapestToReachNode(runningNodeCosts, nodesWithFinalCostConfirmed);
             if (node == NO_NODE)
             {
                 break;
@@ -65,9 +69,9 @@ public class DijkstraSearch
             {
                 int edgeWeight = originNodeNeighbours[targetNode];
                 boolean hasEdge = edgeWeight != NO_EDGE;
-                if (hasEdge && nodeCosts[targetNode] > nodeCosts[node] + edgeWeight)
+                if (hasEdge && runningNodeCosts[targetNode] > runningNodeCosts[node] + edgeWeight)
                 {
-                    nodeCosts[targetNode] = nodeCosts[node] + edgeWeight;
+                    runningNodeCosts[targetNode] = runningNodeCosts[node] + edgeWeight;
                     path.addParent(targetNode, node);
                 }
             }
