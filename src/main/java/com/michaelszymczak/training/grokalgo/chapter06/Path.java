@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Path
 {
-    private static final int NO_NODE = -1;
+    public static final int NO_NODE = -1;
     public static int[] NO_PATH = new int[0];
     private final int[] parents;
 

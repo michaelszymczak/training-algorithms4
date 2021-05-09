@@ -2,7 +2,7 @@ package com.michaelszymczak.training.grokalgo.chapter06;
 
 import static java.lang.System.arraycopy;
 
-final class Set
+public final class Set
 {
     private static final int SENTINEL = 0;
     private final int bucketCount;
