@@ -60,7 +60,7 @@ public class DijkstraSearch
         while (true)
         {
             node = findNextConfirmedCheapestToReachNode(runningNodeCosts, nodesWithFinalCostConfirmed);
-            if (node == NO_NODE)
+            if (node == NO_NODE || node == endNode)
             {
                 break;
             }
