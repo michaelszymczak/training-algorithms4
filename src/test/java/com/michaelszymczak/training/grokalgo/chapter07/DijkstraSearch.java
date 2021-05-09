@@ -1,5 +1,7 @@
 package com.michaelszymczak.training.grokalgo.chapter07;
 
+import java.util.Arrays;
+
 import com.michaelszymczak.training.grokalgo.chapter06.Path;
 import com.michaelszymczak.training.grokalgo.chapter06.Set;
 
@@ -43,6 +45,8 @@ public class DijkstraSearch
         }
         final Path path = new Path(graph.length);
         final int[] nodeCosts = new int[graph.length];
+        Arrays.fill(nodeCosts, Integer.MAX_VALUE / 2);
+        nodeCosts[startNode] = 0;
         final Set nodesChecked = new Set();
 
         int node;
@@ -57,8 +61,9 @@ public class DijkstraSearch
             for (int targetNode = 0; targetNode < originNodeNeighbours.length; targetNode++)
             {
                 boolean hasEdge = originNodeNeighbours[targetNode] != NO_EDGE;
-                if (hasEdge)
+                if (hasEdge && nodeCosts[targetNode] > nodeCosts[node])
                 {
+                    nodeCosts[targetNode] = nodeCosts[node] + 1;
                     path.addParent(targetNode, node);
                 }
             }

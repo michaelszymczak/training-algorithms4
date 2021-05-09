@@ -108,6 +108,14 @@ class DijkstraSearchTest
                 "|.." +
                 "|4."
         ), 1, 0)).isEqualTo(p("1,0"));
+
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|..4." +
+                "|..4." +
+                "|...." +
+                "|...."
+        ), 0, 2)).isEqualTo(p("0,2"));
     }
 
     @Test
@@ -140,6 +148,34 @@ class DijkstraSearchTest
                 "|4..." +
                 "|...."
         ), 1, 0)).isEqualTo(p("1,2,0"));
+    }
+
+    @Test
+    void shouldFindAPathInUniformlyWeightedGraphWithFewerHops()
+    {
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|4444" +
+                "|..4." +
+                "|...." +
+                "|..4."
+        ), 0, 2)).isEqualTo(p("0,2"));
+
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|.4.4" +
+                "|...4" +
+                "|...." +
+                "|..4."
+        ), 0, 2)).isEqualTo(p("0,3,2"));
+
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|.4.4" +
+                "|..44" +
+                "|...." +
+                "|.4.."
+        ), 0, 2)).isEqualTo(p("0,1,2"));
     }
 
     @Test
