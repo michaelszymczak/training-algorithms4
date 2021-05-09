@@ -11,6 +11,19 @@ public class DijkstraSearch
 {
     public static final int NO_EDGE = Integer.MIN_VALUE;
 
+    private static int nextNodeToCheck(int[] nodeCosts, Set visitedNodes)
+    {
+        for (int node = 0; node < nodeCosts.length; node++)
+        {
+            if (!visitedNodes.contains(node))
+            {
+                visitedNodes.add(node);
+                return node;
+            }
+        }
+        return NO_NODE;
+    }
+
     public int[] shortestPath(final int[][] graph, final int startNode, final int endNode)
     {
         for (final int[] ints : graph)
@@ -52,18 +65,5 @@ public class DijkstraSearch
         }
 
         return path.generate(startNode, endNode);
-    }
-
-    private int nextNodeToCheck(int[] nodeCosts, Set visitedNodes)
-    {
-        for (int node = 0; node < nodeCosts.length; node++)
-        {
-            if (!visitedNodes.contains(node))
-            {
-                visitedNodes.add(node);
-                return node;
-            }
-        }
-        return NO_NODE;
     }
 }
