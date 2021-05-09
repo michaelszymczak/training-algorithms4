@@ -102,6 +102,12 @@ class DijkstraSearchTest
                 "|...." +
                 "|...."
         ), 1, 3)).isEqualTo(p("1,3"));
+
+        assertThat(search.shortestPath(m(
+                " __" +
+                "|.." +
+                "|4."
+        ), 1, 0)).isEqualTo(p("1,0"));
     }
 
     @Test
@@ -114,6 +120,26 @@ class DijkstraSearchTest
                 "|...." +
                 "|...."
         ), 0, 2)).isEqualTo(p("0,1,2"));
+    }
+
+    @Test
+    void shouldFindPathWithOneHopGoingBackward()
+    {
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|..4." +
+                "|...." +
+                "|.4.." +
+                "|...."
+        ), 0, 1)).isEqualTo(p("0,2,1"));
+
+        assertThat(search.shortestPath(m(
+                " ____" +
+                "|...." +
+                "|..4." +
+                "|4..." +
+                "|...."
+        ), 1, 0)).isEqualTo(p("1,2,0"));
     }
 
     @Test
