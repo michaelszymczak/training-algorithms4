@@ -54,14 +54,14 @@ public class DijkstraSearch
         return path.generate(startNode, endNode);
     }
 
-    private int nextNodeToCheck(int[] nodeCosts, Set nodesWithLowestCostCalculated)
+    private int nextNodeToCheck(int[] nodeCosts, Set visitedNodes)
     {
-        for (int edge = 0; edge < nodeCosts.length; edge++)
+        for (int node = 0; node < nodeCosts.length; node++)
         {
-            if (!nodesWithLowestCostCalculated.contains(edge))
+            if (!visitedNodes.contains(node))
             {
-                nodesWithLowestCostCalculated.add(edge);
-                return edge;
+                visitedNodes.add(node);
+                return node;
             }
         }
         return NO_NODE;
